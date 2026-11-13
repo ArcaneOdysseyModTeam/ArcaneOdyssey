@@ -16,12 +16,25 @@ namespace ArcaneOdyssey.Projectiles.Base
 			Projectile.Kill();
 		}
 
+		public void NetUpdate()
+		{
+			Projectile.netSpam = 0;
+			Projectile.netUpdate = true;
+		}
+
+		public override void SetDefaults()
+		{
+			Projectile.scale *= Size;
+		}
+		public virtual float Size => 1f;
+
 		public virtual SpriteEffects FlippedMode => SpriteEffects.FlipVertically;
 
 		public override bool PreDraw(ref Color lightColor)
 		{
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, Sprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+			var frame = Sprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
+			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), Projectile.rotation, frame.Size() / 2f, Projectile.scale, mode);
 			return false;
 		}
 

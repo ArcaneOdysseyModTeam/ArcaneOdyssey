@@ -20,6 +20,8 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 		}
 
+		public const int RockStabTime = 60;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();

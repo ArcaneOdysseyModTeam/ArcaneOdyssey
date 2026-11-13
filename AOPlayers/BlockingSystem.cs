@@ -8,11 +8,27 @@ namespace ArcaneOdyssey.AOPlayers
 		public bool Blocking { get; private set; }
 		private bool wasBlocking;
 
-		public bool Parrying => Blocking && blockingTime > (MaxBlock - 25);
+		public bool Parrying => Blocking && blockingTime > (MaxBlock - ParryTime);
 
 		public byte blockingTime = MaxBlock;
 
-		public const byte MaxBlock = 120;
+		public const byte MaxBlock = 120, ParryTime = 25;
+
+		public static byte IndicatorTime
+		{
+			get
+			{
+				if (Main.masterMode)
+				{
+					return ParryTime; // 25 frames
+				}
+				if (Main.expertMode)
+				{
+					return ParryTime * 2; // 50 frames
+				}
+				return MaxBlock; // 120 frames
+			}
+		}
 
 		public void HandleBlocking()
 		{

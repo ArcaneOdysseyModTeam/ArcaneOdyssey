@@ -24,12 +24,6 @@ namespace ArcaneOdyssey.Projectiles.Base
 
 		public AOPlayer AOPlayerOwner => Owner?.ArcaneOdyssey();
 
-		public void NetUpdate()
-		{
-			Projectile.netSpam = 0;
-			Projectile.netUpdate = true;
-		}
-
 		public Player Owner
 		{
 			get
@@ -55,18 +49,14 @@ namespace ArcaneOdyssey.Projectiles.Base
 		public Imbuable SecondImbue
 		{
 			get => Projectile.ArcaneOdyssey()?.SecondImbue;
-			set => Projectile.ArcaneOdyssey().SecondImbue = value;
+			set
+			{
+				if (Projectile.ArcaneOdyssey() is not null)
+					Projectile.ArcaneOdyssey().SecondImbue = value;
+			}
 		}
 
 		public bool? BenifitsFromScrollStats => Projectile.ArcaneOdyssey()?.BenifitsFromScrollStats;
-
-		public override void SetDefaults()
-		{
-			Projectile.scale *= Size;
-		}
-
-		public virtual float Speed => 1f;
-		public virtual float Size => 1f;
 
 		public virtual Debuff? ProjectileDebuff => Debuff.Create<Bleeding>(60 * 5);
 		public virtual SoundStyle? HitSound => null;

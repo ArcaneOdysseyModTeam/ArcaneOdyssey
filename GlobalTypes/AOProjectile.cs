@@ -293,11 +293,6 @@ namespace ArcaneOdyssey.GlobalTypes
 			if (!CanBeAffected || projectile.hostile || projectile.owner == 255 || !projectile.active || projectile.npcProj || projectile.trap)
 				return;
 
-			if (projectile.ModProjectile is PlayerProjectile proj1)
-			{
-				projectile.velocity *= proj1.Speed;
-			}
-
 			if (source is EntitySource_ItemUse { Item: Item weap })
 			{
 				OriginWeaponType = ArcaneOdysseyMod.Sets.weaponType[weap.type];
@@ -483,6 +478,13 @@ namespace ArcaneOdyssey.GlobalTypes
 			On_Projectile.CanExplodeTile += EliusTileCheck;
 			On_Projectile.ShouldWallExplode += EliusWallCheck;
 			On_Player.DropTombstone += EliusArenaNoTombstones;
+		}
+
+		public override bool? CanUseGrapple(int type, Player player)
+		{
+			if (AOUtils.InAOSubworld)
+				return false;
+			return base.CanUseGrapple(type, player);
 		}
 
 		private static void EliusArenaNoTombstones(On_Player.orig_DropTombstone orig, Player self, long coinsOwned, NetworkText deathText, int hitDirection)

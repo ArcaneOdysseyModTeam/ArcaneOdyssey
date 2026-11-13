@@ -28,6 +28,17 @@ namespace ArcaneOdyssey.Subworlds.Base
 			Main.instance.GraphicsDevice.Clear(Color.Black);
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
 			ArcaneOdysseyMainMenu.DrawAOBackground(Main.spriteBatch);
+			for (int i = 0; i < Main.musicFade.Length; i++)
+			{
+				if (i == ArcaneOdysseyMainMenu.SelectedTitle.Track.MusicSlot)
+				{
+					Main.musicFade[i] = 1f;
+				}
+				else
+				{
+					Main.musicFade[i] = 0;
+				}
+			}
 			DrawMenu(gameTime);
 			//Main.DrawCursor(Main.DrawThickCursor());
 			Main.spriteBatch.End();

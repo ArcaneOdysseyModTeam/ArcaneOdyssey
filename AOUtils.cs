@@ -36,6 +36,7 @@ namespace ArcaneOdyssey
 		public const string SlashTexture = ArcaneOdysseyMod.InternalName + "/Assets/BasicSlash";
 		public const string GelTexture = ArcaneOdysseyMod.InternalName + "/Assets/GelBuffBackground";
 		public const string DebuffTexture = ArcaneOdysseyMod.InternalName + "/Assets/Debuff";
+		public const string BlockTexture = ArcaneOdysseyMod.InternalName + "/Assets/BlockingIndicator";
 
 		public static T Safe<T>(object item) where T : class
 		{
@@ -583,30 +584,9 @@ namespace ArcaneOdyssey
 		{
 			if (usemodtype && ArcaneOdysseyMod.finishedLoading)
 			{
-				if (typeof(T).IsSubclassOf(typeof(ModItem)))
+				if (typeof(T).IsSubclassOf(typeof(ModTexturedType)))
 				{
-					var inst = ModContent.GetInstance<T>() as ModItem;
-					var tex = inst.Texture;
-					if (ModContent.HasAsset(tex))
-						return tex;
-				}
-				if (typeof(T).IsSubclassOf(typeof(ModProjectile)))
-				{
-					var inst = ModContent.GetInstance<T>() as ModProjectile;
-					var tex = inst.Texture;
-					if (ModContent.HasAsset(tex))
-						return tex;
-				}
-				if (typeof(T).IsSubclassOf(typeof(ModGore)))
-				{
-					var inst = ModContent.GetInstance<T>() as ModGore;
-					var tex = inst.Texture;
-					if (ModContent.HasAsset(tex))
-						return tex;
-				}
-				if (typeof(T).IsSubclassOf(typeof(ModBuff)))
-				{
-					var inst = ModContent.GetInstance<T>() as ModBuff;
+					var inst = ModContent.GetInstance<T>() as ModTexturedType;
 					var tex = inst.Texture;
 					if (ModContent.HasAsset(tex))
 						return tex;
@@ -726,7 +706,7 @@ namespace ArcaneOdyssey
 			return imbues;
 		}
 
-		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, NPC source)
+		public static void SimulateAOE(float range, float damage, Vector2 origin, float knockback, Entity source = null)
 		{
 			foreach (var player in Main.ActivePlayers)
 			{
@@ -744,7 +724,16 @@ namespace ArcaneOdyssey
 						}
 						knockback = 0f;
 					}
-					player.Hurt(PlayerDeathReason.ByNPC(source.whoAmI), damage.Round(), (player.Center.X > origin.X).ToDirectionInt(), dodgeable: false, knockback: knockback);
+					var reason = PlayerDeathReason.LegacyDefault();
+					if (source is Projectile proj)
+					{
+						reason = PlayerDeathReason.ByProjectile(proj.hostile ? -1 : proj.owner, proj.whoAmI);
+					}
+					if (source is NPC)
+					{
+						reason = PlayerDeathReason.ByNPC(source.whoAmI);
+					}
+					player.Hurt(reason, damage.Round(), (player.Center.X > origin.X).ToDirectionInt(), dodgeable: false, knockback: knockback);
 				}
 			}
 		}

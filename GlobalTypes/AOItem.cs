@@ -13,6 +13,7 @@ using ArcaneOdyssey.Items.Equipment.Pets;
 using ArcaneOdyssey.Items.Materials;
 using ArcaneOdyssey.Items.Scrolls.Passive.Common;
 using ArcaneOdyssey.Items.Weapons.Atlantean;
+using ArcaneOdyssey.Mounts;
 using ArcaneOdyssey.Prefixes;
 using ArcaneOdyssey.Projectiles;
 using ReLogic.Graphics;
@@ -1193,7 +1194,7 @@ namespace ArcaneOdyssey.GlobalTypes
 		public override bool CanUseItem(Item item, Player player)
 		{
 			bool inArena = player.InModBiome<EliusArena>() || AOUtils.InAOSubworld;
-			bool illegalItemForArena = item.type is ItemID.PortalGun or ItemID.Sandgun or ItemID.IceRod or ItemID.DirtBomb or ItemID.DirtStickyBomb or ItemID.DryBomb or ItemID.BottomlessShimmerBucket or ItemID.WaterBucket or ItemID.BottomlessBucket or ItemID.BottomlessHoneyBucket or ItemID.BottomlessLavaBucket || ItemID.Sets.AlsoABuildingItem[item.type] || ItemID.Sets.ItemsThatCountAsBombsForDemolitionistToSpawn[item.type];
+			bool illegalItemForArena = item.type is ItemID.PortalGun or ItemID.Sandgun or ItemID.IceRod or ItemID.DirtBomb or ItemID.DirtStickyBomb or ItemID.DryBomb or ItemID.BottomlessShimmerBucket or ItemID.WaterBucket or ItemID.BottomlessBucket or ItemID.BottomlessHoneyBucket or ItemID.BottomlessLavaBucket || ItemID.Sets.AlsoABuildingItem[item.type] || item.mountType != ModContent.MountType<Rowboat>() || ItemID.Sets.ItemsThatCountAsBombsForDemolitionistToSpawn[item.type];
 			if (illegalItemForArena && inArena)
 				return false;
 

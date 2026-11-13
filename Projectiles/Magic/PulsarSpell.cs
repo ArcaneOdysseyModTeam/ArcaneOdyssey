@@ -12,7 +12,6 @@ namespace ArcaneOdyssey.Projectiles.Magic
 
 		public override Texture2D Sprite => ImbueID.Sets.Assets.blasts[Imbue?.ID ?? WindMagic.StaticID]?.Value ?? base.Sprite;
 		public override float Size => .5f;
-		public override float Speed => .25f;
 
 		public override void SetDefaults()
 		{

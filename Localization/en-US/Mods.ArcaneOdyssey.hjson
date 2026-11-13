@@ -165,6 +165,13 @@ Projectiles: {
 			EliusSpear.DisplayName: Noble Thunderspear
 			EliusTrail.DisplayName: Lightning Trail
 		}
+
+		Argos: {
+			ArgosRock.DisplayName: Seismic Slash
+			ArgosTornado.DisplayName: Tempest
+			ArgosTornadoEmitter.DisplayName: Tempest
+			ArgosShockwave.DisplayName: Devastate
+		}
 	}
 
 	Pets: {

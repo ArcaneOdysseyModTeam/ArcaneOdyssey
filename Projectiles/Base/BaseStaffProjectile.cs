@@ -9,6 +9,8 @@
 			ProjectileID.Sets.AllowsContactDamageFromJellyfish[Type] = true;
 		}
 
+		public virtual float Speed => 1f;
+
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
@@ -34,7 +36,7 @@
 			Projectile.Center = Owner.RotatedRelativePoint(Owner.RotatedRelativePoint(Owner.MountedCenter), true);
 			Projectile.direction = 1;
 
-			float spintime = 25f * Speed.FlipFloat() * 2f * (Imbue?.ImbueSpeed.FlipFloat() ?? 1f);
+			float spintime = ApplySpeed(25f * Speed.FlipFloat() * 2f, true);
 			Vector2 expectedDirection = Owner.SafeDirectionTo(Main.MouseWorld);
 			Owner.ChangeDir((expectedDirection.X > 0f).ToDirectionInt());
 
@@ -66,7 +68,7 @@
 
 			else
 			{
-				Projectile.ai[1] += MathHelper.Pi / (MathHelper.TwoPi * 2f / (25f * Speed.FlipFloat() * 2f * (Imbue?.ImbueSpeed ?? 1f)));
+				Projectile.ai[1] += MathHelper.Pi / (MathHelper.TwoPi * 2f / ApplySpeed(25f * Speed.FlipFloat() * 2f));
 			}
 
 			Projectile.rotation += MathHelper.TwoPi * 2f / spintime * Owner.direction;

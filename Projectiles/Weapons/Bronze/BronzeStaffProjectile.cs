@@ -7,7 +7,6 @@ namespace ArcaneOdyssey.Projectiles.Weapons.Bronze
 {
 	public class BronzeStaffProjectile : BaseStaffProjectile
 	{
-		public override float Speed => 1;
 		public override float Size => .9f;
 
 		public override void EffectBeforeSpin(Player player)

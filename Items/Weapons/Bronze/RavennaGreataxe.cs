@@ -5,6 +5,7 @@ using ArcaneOdyssey.Items.Weapons.Old;
 using ArcaneOdyssey.Projectiles.Abilities;
 using ReLogic.Utilities;
 using Terraria.Audio;
+using Terraria.GameContent;
 
 
 namespace ArcaneOdyssey.Items.Weapons.Bronze
@@ -104,8 +105,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			{
 				if (player.whoAmI == Main.myPlayer)
 				{
-					var proj = AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Center, Vector2.Zero, ModContent.ProjectileType<DevastateShockwave>(), Damage * 2, Knockback, player.whoAmI, Imbue, SecondImbue);
-					proj.Bottom = player.Bottom;
+					AOUtils.ShootProjectile(Source.GetSource_ItemUse(player), player.Bottom + new Vector2(TextureAssets.Item[player.PlayerItem().type].Size().Length() * .75f * player.direction, 0), Vector2.Zero, ModContent.ProjectileType<DevastateShockwave>(), Damage * 2, Knockback, player.whoAmI, Imbue, SecondImbue);
 				}
 				SoundEngine.PlaySound(SoundID.Item14 with { Pitch = -.25f }, player.Bottom);
 			}

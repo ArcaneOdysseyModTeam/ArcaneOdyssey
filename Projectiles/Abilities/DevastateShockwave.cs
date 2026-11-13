@@ -13,8 +13,8 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		public override void SetDefaults()
 		{
 			base.SetDefaults();
-			Projectile.width = 594;
-			Projectile.height = 108;
+			Projectile.width = 600;
+			Projectile.height = 200;
 			Projectile.ownerHitCheck = true;
 			Projectile.tileCollide = false;
 			Projectile.ignoreWater = true;
@@ -30,7 +30,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			if (Projectile.ai[0] == 0)
 			{
 				Projectile.ai[0] = 1;
-				Projectile.Bottom = Owner.Bottom;
+				Projectile.Bottom = Projectile.Center;
 				if (!Main.dedServ)
 				{
 					PunchCameraModifier modifier = new(Projectile.Center, (Main.rand.NextFloat() * MathHelper.TwoPi).ToRotationVector2(), ApplyKnockback(20f), ApplyKnockback(6f), 20, ApplyKnockback(300f), FullName);
@@ -51,7 +51,11 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		public override bool PreDraw(ref Color lightColor)
 		{
 			lightColor = Imbue?.Colour.MultiplyRGB(lightColor) ?? lightColor;
-			return base.PreDraw(ref lightColor);
+			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
+			var frame = Sprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
+			// draw from the bottom!
+			Main.EntitySpriteDraw(Sprite, Projectile.Bottom - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(frame.Width / 2f, frame.Height), Projectile.scale, mode);
+			return false;
 		}
 	}
 }

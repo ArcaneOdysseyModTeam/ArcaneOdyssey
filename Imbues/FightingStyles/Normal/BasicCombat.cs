@@ -83,15 +83,17 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 			On_Item.GetShimmered += ShimmerSkills;
 		}
 
+#pragma warning disable ChangeMagicNumberToID // Change magic numbers into appropriate ID values
 		private static void ShimmerSkills(On_Item.orig_GetShimmered orig, Item self)
 		{
 			if (self.ModItem is Imbuable imbue)
 			{
 				var shimmerEquivalentType = self.GetShimmerEquivalentType();
 				var decraftingRecipeIndex = ShimmerTransforms.GetDecraftingRecipeIndex(shimmerEquivalentType);
+				int itemCounter = 0;
 				if (ItemID.Sets.ShimmerTransformToItem[shimmerEquivalentType] > 0)
 				{
-					int itemCounter = 1;
+					itemCounter = 1;
 					var enumerable = AddSkillsToShimmerOutput(imbue);
 					foreach (Item item in enumerable)
 					{
@@ -125,7 +127,6 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 					{
 						enumerable = recipe.customShimmerResults;
 					}
-					int itemCounter = 0;
 					foreach (Item item in enumerable)
 					{
 						if (item.type <= 0)
@@ -162,6 +163,7 @@ namespace ArcaneOdyssey.Imbues.FightingStyles.Normal
 			}
 			orig(self);
 		}
+#pragma warning restore ChangeMagicNumberToID // Change magic numbers into appropriate ID values
 
 		private static IEnumerable<Item> AddSkillsToShimmerOutput(Imbuable imbue)
 		{

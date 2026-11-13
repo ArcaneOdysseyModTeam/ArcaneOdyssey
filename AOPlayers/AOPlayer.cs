@@ -4,6 +4,7 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Consumable;
+using ArcaneOdyssey.Items.Equipment.Mounts;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdysseyMusic.MusicBoxes;
@@ -80,7 +81,18 @@ namespace ArcaneOdyssey.AOPlayers
 		{
 			On_Player.ApplyDamageToNPC += AoEHelper;
 			On_Player.ItemCheck_UseTeleportRod += DarkSeaNoTeleport;
+			On_Player.QuickMount_GetItemToUse += NoMounts;
 			RegisterPacket();
+		}
+
+		private static Item NoMounts(On_Player.orig_QuickMount_GetItemToUse orig, Player self)
+		{
+			var item = orig(self);
+			if (AOUtils.InAOSubworld && item.type != ModContent.ItemType<WoodenPaddle>())
+			{
+				return null;
+			}
+			return item;
 		}
 
 		public int jumpCount;
