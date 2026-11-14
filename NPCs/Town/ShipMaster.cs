@@ -77,6 +77,8 @@ namespace ArcaneOdyssey.NPCs.Town
 				"Lemon",
 				"Hisaka Kagemori",
 				"Green Gaster",
+				"Gleebus",
+				"Jackie"
 			];
 		}
 
