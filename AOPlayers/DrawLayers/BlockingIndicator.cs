@@ -11,7 +11,8 @@ namespace ArcaneOdyssey.AOPlayers.DrawLayers
 
 		public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
 		{
-			return Show
+			return !Main.expertMode 
+			&& Show
 			&& !Main.hideUI
 			&& drawInfo.drawPlayer.whoAmI == Main.myPlayer
 			&& drawInfo.drawPlayer.active

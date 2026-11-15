@@ -469,11 +469,21 @@ namespace ArcaneOdyssey
 		}
 	}
 
-	public class AODebuffManager : GlobalBuff
+	public abstract class AONetSystem : ModSystem
 	{
-		public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)
+		public override void Load()
 		{
-			buffName = buffName.Replace("Imbue", "Gel");
+			ArcaneOdysseyMod.HandleExtraPacket += HandlePacket;
+			Packet = ArcaneOdysseyMod.PacketID.ExtraHandle++;
+		}
+
+		public byte Packet;
+		protected abstract void HandlePacket(BinaryReader reader, int whoAmI, byte command);
+
+		public override void Unload()
+		{
+			ArcaneOdysseyMod.HandleExtraPacket -= HandlePacket;
+			ArcaneOdysseyMod.PacketID.ExtraHandle--;
 		}
 	}
 

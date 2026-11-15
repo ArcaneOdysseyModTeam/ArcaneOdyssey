@@ -168,7 +168,6 @@ Projectiles: {
 
 		Argos: {
 			ArgosRock.DisplayName: Seismic Slash
-			ArgosTornado.DisplayName: Tempest
 			ArgosTornadoEmitter.DisplayName: Tempest
 			ArgosShockwave.DisplayName: Devastate
 		}

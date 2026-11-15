@@ -6,7 +6,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 	{
 		public sealed override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
 
-		public virtual Texture2D Sprite => (Texture != $"{Mod.Name}/{TextureAssets.Projectile[Type]?.Name.Replace("\\", "/") ?? Texture}" ? ModContent.Request<Texture2D>(Texture) : TextureAssets.Projectile[Type])?.Value;
+		public virtual Asset<Texture2D> Sprite => Texture != $"{Mod.Name}/{TextureAssets.Projectile[Type]?.Name.Replace("\\", "/") ?? Texture}" ? ModContent.Request<Texture2D>(Texture) : TextureAssets.Projectile[Type];
 
 		/// <summary>
 		/// Kills the projectile.
@@ -26,6 +26,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 		{
 			Projectile.scale *= Size;
 		}
+
 		public virtual float Size => 1f;
 
 		public virtual SpriteEffects FlippedMode => SpriteEffects.FlipVertically;
@@ -34,7 +35,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 		{
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
 			var frame = Sprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
-			Main.EntitySpriteDraw(Sprite, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), Projectile.rotation, frame.Size() / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite.Value, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), Projectile.rotation, frame.Size() / 2f, Projectile.scale, mode);
 			return false;
 		}
 
@@ -42,7 +43,7 @@ namespace ArcaneOdyssey.Projectiles.Base
 		{
 			if (ModContent.RequestIfExists<Texture2D>(GlowTexture, out var tex))
 			{
-				if (tex.Height() == Sprite.Height)
+				if (tex.Height() == Sprite.Height())
 				{
 					SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
 					Main.EntitySpriteDraw(tex.Value, Projectile.Center - Main.screenPosition, tex.Frame(1, Main.projFrames[Type], 0, Projectile.frame), Projectile.GetAlpha(Color.White), Projectile.rotation, new Vector2(tex.Width(), tex.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);

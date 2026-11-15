@@ -30,10 +30,10 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 		}
 
 
-		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic), ModContent.GetInstance<WindMagic>().AttackPrefix + "RayEnd");
-		public Texture2D MidSprite => ImbueID.Sets.Assets.raySprites[Imbue?.ID ?? WindMagic.StaticID]?.Value ?? base.Sprite;
-		public Texture2D EndSprite => ImbueID.Sets.Assets.rayEndSprites[Imbue?.ID ?? WindMagic.StaticID]?.Value ?? base.Sprite;
-		public Texture2D StartSprite => ImbueID.Sets.Assets.rayStartSprites[Imbue?.ID ?? WindMagic.StaticID]?.Value ?? base.Sprite;
+		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic.Value), ModContent.GetInstance<WindMagic>().AttackPrefix + "RayEnd");
+		public Asset<Texture2D> MidSprite => ImbueID.Sets.Assets.raySprites[Imbue?.ID ?? WindMagic.StaticID] ?? base.Sprite;
+		public Asset<Texture2D> EndSprite => ImbueID.Sets.Assets.rayEndSprites[Imbue?.ID ?? WindMagic.StaticID] ?? base.Sprite;
+		public Asset<Texture2D> StartSprite => ImbueID.Sets.Assets.rayStartSprites[Imbue?.ID ?? WindMagic.StaticID] ?? base.Sprite;
 
 
 		public override float Size => .75f;
@@ -85,11 +85,11 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 			if (origin != default)
 			{
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-				var info = AOUtils.DrawChain(origin, Projectile.Center, MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
+				var info = AOUtils.DrawChain(origin, Projectile.Center, MidSprite.Value, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(), mode);
 				var frame = StartSprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
-				Main.EntitySpriteDraw(StartSprite, origin - Main.screenPosition, frame, Projectile.GetAlpha(), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
-				var ending = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);
-				Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				Main.EntitySpriteDraw(StartSprite.Value, origin - Main.screenPosition, frame, Projectile.GetAlpha(), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
+				var ending = info.Ending + new Vector2(EndSprite.Width() * Projectile.scale, 0).RotatedBy(info.Rotation);
+				Main.EntitySpriteDraw(EndSprite.Value, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(), info.Rotation, new Vector2(EndSprite.Width(), EndSprite.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 			}
 			return false;
 		}

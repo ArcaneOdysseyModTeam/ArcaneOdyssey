@@ -1,4 +1,7 @@
-﻿using ArcaneOdyssey.Items.Weapons.Bronze;
+﻿#if VSDEBUGMODE
+using ArcaneOdyssey.Items.Consumable.SealedChests;
+#endif
+using ArcaneOdyssey.Items.Weapons.Bronze;
 using ArcaneOdyssey.NPCs.Base;
 using ArcaneOdyssey.Subworlds.Base;
 using ArcaneOdyssey.UI;
@@ -78,7 +81,8 @@ namespace ArcaneOdyssey.NPCs.Town
 				"Hisaka Kagemori",
 				"Green Gaster",
 				"Gleebus",
-				"Jackie"
+				"Jackie",
+				"Jacob Bryson"
 			];
 		}
 
@@ -89,37 +93,51 @@ namespace ArcaneOdyssey.NPCs.Town
 		public override void SetChatButtons(ref string button, ref string button2) // PORT change to new method
 		{
 			button = Mod.CustomLocalization("RandomWords.Travel").Value;
-			//button2 = Mod.CustomLocalization("RandomWords.Unseal").Value;
+#if VSDEBUGMODE
+			button2 = Mod.CustomLocalization("RandomWords.Unseal").Value;
+#endif
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName) // PORT change to new method
 		{
+			Main.CloseNPCChatOrSign();
 			if (firstButton)
 			{
-				Main.CloseNPCChatOrSign();
+				// open odyssey system and ship shop
 				try
 				{
-					ModUISystem instance = ModContent.GetInstance<ModUISystem>();
-					instance.ShowSubWorlds();
+					ModContent.GetInstance<ModUISystem>().ShowSubWorlds();
 				}
 				catch (Exception ex)
 				{
 					Main.NewText($"Error, please tell Spoky \n{ex}", new Color(255, 0, 255));
 				}
-				ArcaneOdysseyMod.NoticeQueue.Add("System not complete!");
-				// open odyssey system and ship shop
 			}
-			//else
-			//{
-			//	// change to cycle first button later?
-			//	// unbox sealed crates
-			//	Main.npcChatText = $"Unsealed {/*Main.LocalPlayer.ArcaneOdyssey().BronzeSealed + Main.LocalPlayer.ArcaneOdyssey().NimbusSealed + */Main.LocalPlayer.ArcaneOdyssey().DarkSealed} chests";
-			//	if (Main.LocalPlayer.ArcaneOdyssey().DarkSealed > 0)
-			//	{
-			//		Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_FromThis(), ModContent.ItemType<DarkSealedChest>(), Main.LocalPlayer.ArcaneOdyssey().DarkSealed);
-			//	}
-			//	Main.LocalPlayer.ArcaneOdyssey().DarkSealed = 0;
-			//}
+#if VSDEBUGMODE
+			else
+			{
+				// change to cycle first button later?
+				// unbox sealed crates
+				
+				if (Main.LocalPlayer.ArcaneOdyssey().DarkSealed > 0)
+				{
+					Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<UnlockedDarkSealedChest>(), Main.LocalPlayer.ArcaneOdyssey().DarkSealed);
+					Main.LocalPlayer.ArcaneOdyssey().DarkSealed = 0;
+				}
+
+				if (Main.LocalPlayer.ArcaneOdyssey().BronzeSealed > 0)
+				{
+					Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<UnlockedBronzeSealedChest>(), Main.LocalPlayer.ArcaneOdyssey().BronzeSealed);
+					Main.LocalPlayer.ArcaneOdyssey().BronzeSealed = 0;
+				}
+
+				if (Main.LocalPlayer.ArcaneOdyssey().NimbusSealed > 0)
+				{
+					Main.LocalPlayer.QuickSpawnItem(NPC.GetSource_GiftOrReward(), ModContent.ItemType<UnlockedNimbusSealedChest>(), Main.LocalPlayer.ArcaneOdyssey().NimbusSealed);
+					Main.LocalPlayer.ArcaneOdyssey().NimbusSealed = 0;
+				}
+			}
+#endif
 		}
 
 		private static string LastDialogue = "";

@@ -93,19 +93,19 @@ namespace ArcaneOdyssey.Projectiles.Magic.Effects
 			Color colour = Projectile.GetAlpha(Imbue?.Colour ?? lightColor);
 			foreach (var branch in branches)
 			{
-				var chain = AOUtils.DrawChain(branch.Start, branch.End, Sprite, Projectile.scale * .75f, colour: colour);
+				var chain = AOUtils.DrawChain(branch.Start, branch.End, Sprite.Value, Projectile.scale * .75f, colour: colour);
 				var mid = Vector2.Lerp(branch.Start, chain.Ending, .5f);
 				Lighting.AddLight(mid, colour.ToVector3() * Projectile.scale);
 				Lighting.AddLight(chain.Ending, colour.ToVector3() * Projectile.scale);
 				foreach (var branch2 in branch.children)
 				{
-					chain = AOUtils.DrawChain(branch2.Start, branch2.End, Sprite, Projectile.scale / 2f, colour: colour);
+					chain = AOUtils.DrawChain(branch2.Start, branch2.End, Sprite.Value, Projectile.scale / 2f, colour: colour);
 					mid = Vector2.Lerp(branch.Start, chain.Ending, .5f);
 					Lighting.AddLight(mid, colour.ToVector3() * Projectile.scale);
 					Lighting.AddLight(chain.Ending, colour.ToVector3() * Projectile.scale);
 					foreach (var branch3 in branch2.children)
 					{
-						chain = AOUtils.DrawChain(branch3.Start, branch3.End, Sprite, Projectile.scale / 3f, colour: colour);
+						chain = AOUtils.DrawChain(branch3.Start, branch3.End, Sprite.Value, Projectile.scale / 3f, colour: colour);
 						mid = Vector2.Lerp(branch.Start, chain.Ending, .5f);
 						Lighting.AddLight(mid, colour.ToVector3() * Projectile.scale);
 						Lighting.AddLight(chain.Ending, colour.ToVector3() * Projectile.scale);

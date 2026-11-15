@@ -80,7 +80,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 				{
 					rotaitoneoffset = SpriteEffects.FlipHorizontally;
 				}
-				Main.EntitySpriteDraw(Sprite, drawPos - Main.screenPosition, Sprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame), colour2, Projectile.oldRot[k], (Sprite.Size() with { Y = Sprite.Height / Main.projFrames[Type] }) / 2f, Projectile.scale, rotaitoneoffset, 0);
+				Main.EntitySpriteDraw(Sprite.Value, drawPos - Main.screenPosition, Sprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame), colour2, Projectile.oldRot[k], (Sprite.Size() with { Y = Sprite.Height() / Main.projFrames[Type] }) / 2f, Projectile.scale, rotaitoneoffset, 0);
 			}
 			return false;
 		}

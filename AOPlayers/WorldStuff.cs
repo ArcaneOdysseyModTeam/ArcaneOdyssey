@@ -38,9 +38,71 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 		}
 
-		public byte BronzeSealed = 0;
-		public byte DarkSealed = 0;
-		public byte NimbusSealed = 0;
+		public byte BronzeSealed { get; internal set; } = 0;
+		public byte DarkSealed { get; internal set; } = 0;
+		public byte NimbusSealed { get; internal set; } = 0;
+		public byte[] AllSealed
+		{
+			get
+			{
+				return [BronzeSealed, DarkSealed, NimbusSealed];
+			}
+			internal set
+			{
+				BronzeSealed = value[0];
+				DarkSealed = value[1];
+				NimbusSealed = value[2];
+			}
+		}
+
+		public const byte MaxSealedChests = byte.MaxValue;
+
+		public void AddBronzeSealed(int amount)
+		{ 
+			var newval = BronzeSealed + amount;
+			if (newval >= MaxSealedChests)
+			{
+				Main.NewText(Mod.CustomLocalization($"{Name}.SealedChestsFull"), Color.Red);
+				newval = MaxSealedChests;
+			}
+			BronzeSealed = (byte)newval;
+			SyncChests();
+		}
+
+		public void AddNimbusSealed(int amount)
+		{
+			var newval = NimbusSealed + amount;
+			if (newval >= MaxSealedChests)
+			{
+				Main.NewText(Mod.CustomLocalization($"{Name}.SealedChestsFull"), Color.Red);
+				newval = MaxSealedChests;
+			}
+			NimbusSealed = (byte)newval;
+			SyncChests();
+		}
+
+		public void AddDarkSealed(int amount)
+		{
+			var newval = DarkSealed + amount;
+			if (newval >= MaxSealedChests)
+			{
+				Main.NewText(Mod.CustomLocalization($"{Name}.SealedChestsFull"), Color.Red);
+				newval = MaxSealedChests;
+			}
+			DarkSealed = (byte)newval;
+			SyncChests();
+		}
+		public static byte SyncChestsPacket => ModContent.GetInstance<SyncSealedChestsSystem>().Packet;
+
+		internal void SyncChests()
+		{
+			if (!AOUtils.Singleplayer)
+			{
+				var packet = Mod.NewPacket(SyncChestsPacket);
+				packet.Write(AllSealed);
+				packet.Send();
+			}
+		}
 
 		public override void UpdateDead()
 		{
@@ -108,6 +170,30 @@ namespace ArcaneOdyssey.AOPlayers
 		{
 			if (!AOUtils.InAOSubworld)
 				orig.Invoke(self, sItem);
+		}
+	}
+
+	public class SyncSealedChestsSystem : AONetSystem
+	{
+		protected override void HandlePacket(BinaryReader reader, int whoAmI, byte command)
+		{
+			if (command == Packet)
+			{
+				if (Main.dedServ)
+				{
+					var player = Main.player[whoAmI].ArcaneOdyssey();
+					player.AllSealed = reader.ReadBytes(3);
+					var packet = Mod.NewPacket(Packet);
+					packet.Write((byte)whoAmI);
+					packet.Write(player.AllSealed);
+					packet.Send(ignoreClient: whoAmI);
+				}
+				else
+				{
+					var player = Main.player[reader.ReadByte()].ArcaneOdyssey();
+					player.AllSealed = reader.ReadBytes(3);
+				}
+			}
 		}
 	}
 

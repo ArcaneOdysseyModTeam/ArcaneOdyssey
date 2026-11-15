@@ -10,7 +10,7 @@ namespace ArcaneOdyssey.Projectiles.Magic
 		// ai 2 is first frame bool
 		public override string Texture => (Mod.Name + "/" + ImbueID.Sets.Assets.blasts[Imbue?.ID ?? WindMagic.StaticID]?.Name ?? typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic), ModContent.GetInstance<WindMagic>().AttackPrefix + "Blast")).Replace("\\", "/");
 
-		public override Texture2D Sprite => ImbueID.Sets.Assets.blasts[Imbue?.ID ?? WindMagic.StaticID]?.Value ?? base.Sprite;
+		public override Asset<Texture2D> Sprite => ImbueID.Sets.Assets.blasts[Imbue?.ID ?? WindMagic.StaticID] ?? base.Sprite;
 
 		public override float Size => .75f;
 
@@ -161,16 +161,16 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
 
 			Lighting.AddLight(Proj1.Center(), Imbue.Colour.ToVector3() * Projectile.scale / 4f);
-			Main.EntitySpriteDraw(Sprite, Proj1.Center() - Main.screenPosition, new(0, Sprite.Height / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, Sprite.Width, Sprite.Height / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite.Value, Proj1.Center() - Main.screenPosition, new(0, Sprite.Height() / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, Sprite.Width(), Sprite.Height() / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width(), Sprite.Height() / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
 
 			Lighting.AddLight(Proj2.Center(), Imbue.Colour.ToVector3() * Projectile.scale / 4f);
-			Main.EntitySpriteDraw(Sprite, Proj2.Center() - Main.screenPosition, new(0, Sprite.Height / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, Sprite.Width, Sprite.Height / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite.Value, Proj2.Center() - Main.screenPosition, new(0, Sprite.Height() / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, Sprite.Width(), Sprite.Height() / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width(), Sprite.Height() / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
 
 			Lighting.AddLight(Proj3.Center(), Imbue.Colour.ToVector3() * Projectile.scale / 4f);
-			Main.EntitySpriteDraw(Sprite, Proj3.Center() - Main.screenPosition, new(0, Sprite.Height / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, Sprite.Width, Sprite.Height / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite.Value, Proj3.Center() - Main.screenPosition, new(0, Sprite.Height() / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, Sprite.Width(), Sprite.Height() / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width(), Sprite.Height() / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
 
 			Lighting.AddLight(Proj4.Center(), Imbue.Colour.ToVector3() * Projectile.scale / 4f);
-			Main.EntitySpriteDraw(Sprite, Proj4.Center() - Main.screenPosition, new(0, Sprite.Height / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, Sprite.Width, Sprite.Height / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width, Sprite.Height / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite.Value, Proj4.Center() - Main.screenPosition, new(0, Sprite.Height() / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID] * Projectile.frame, Sprite.Width(), Sprite.Height() / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(Sprite.Width(), Sprite.Height() / ImbueID.Sets.BlastMaxFrames[Imbue?.ID ?? WindMagic.StaticID]) / 2f, Projectile.scale, mode);
 
 			return false;
 		}

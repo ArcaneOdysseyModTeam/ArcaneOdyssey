@@ -82,7 +82,6 @@ namespace ArcaneOdyssey.AOPlayers
 			On_Player.ApplyDamageToNPC += AoEHelper;
 			On_Player.ItemCheck_UseTeleportRod += DarkSeaNoTeleport;
 			On_Player.QuickMount_GetItemToUse += NoMounts;
-			RegisterPacket();
 		}
 
 		private static Item NoMounts(On_Player.orig_QuickMount_GetItemToUse orig, Player self)

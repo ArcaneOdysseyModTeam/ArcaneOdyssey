@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Items.Debug;
 using ArcaneOdyssey.Rarities;
+using System;
 using System.Collections.Generic;
 using Terraria.GameContent;
 
@@ -8,6 +9,12 @@ namespace ArcaneOdyssey.Items.Base
 	public abstract class BaseItem : ModItem, ILocalizedModType
 	{
 		public sealed override string LocalizationCategory => GetType().Namespace.Replace($"{Mod.Name}.");
+
+		public void AddToArray(ref int[] array)
+		{
+			Array.Resize(ref array, array.Length + 1);
+			array[^1] = Type;
+		}
 
 		public abstract ItemRarities Rarity { get; }
 

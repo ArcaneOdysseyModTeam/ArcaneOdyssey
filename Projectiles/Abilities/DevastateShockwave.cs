@@ -54,7 +54,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 			SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
 			var frame = Sprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
 			// draw from the bottom!
-			Main.EntitySpriteDraw(Sprite, Projectile.Bottom - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(frame.Width / 2f, frame.Height), Projectile.scale, mode);
+			Main.EntitySpriteDraw(Sprite.Value, Projectile.Bottom - Main.screenPosition, frame, Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(frame.Width / 2f, frame.Height), Projectile.scale, mode);
 			return false;
 		}
 	}
