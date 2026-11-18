@@ -1,10 +1,10 @@
 ﻿using ArcaneOdyssey.Buffs.DOT;
 using ArcaneOdyssey.Buffs.MagicMarks;
 using ArcaneOdyssey.Buffs.Stuns;
+using ArcaneOdyssey.Dusts;
 using ArcaneOdyssey.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
-using ArcaneOdyssey.Projectiles.Magic.Effects;
 using System;
 using Terraria.Audio;
 
@@ -81,6 +81,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 
 		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
 		{
+			Dust.NewDustPerfect(position, ModContent.DustType<LightningBurst>(), newColor: Colour, Scale: intensity * 1.6f);
 			for (int n = 0; n < 3; n++)
 			{
 				Dust dust = Dust.NewDustDirect(position, 0, 0, DustID.Firework_Yellow, (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 2.3f * intensity);
@@ -94,8 +95,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			{
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, DustID.IchorTorch, 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), Scale: 2.5f * area.RelativeScale());
 			}
-			if (source is Projectile proj && Main.myPlayer == proj.owner)
-				Projectile.NewProjectile(source.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, proj.owner, ai0: area.RelativeScale(AetherExplosion.SpriteSize) * 1.5f);
+			Dust.NewDustPerfect(area.Center(), ModContent.DustType<LightningBurst>(), newColor: Colour, Scale: area.RelativeBurstScale()).customData = Main.rand.Next(3, 6); 
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 

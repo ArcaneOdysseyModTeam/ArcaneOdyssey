@@ -1,5 +1,4 @@
-﻿using ArcaneOdyssey.AOPlayers;
-using ArcaneOdyssey.Items.Base;
+﻿using ArcaneOdyssey.Items.Base;
 using Terraria.GameContent.ItemDropRules;
 
 namespace ArcaneOdyssey.Items.Consumable.SealedChests

@@ -83,6 +83,31 @@ namespace ArcaneOdyssey
 			"Terraria/Tooltip",
 		];
 
+		public static float MinDustScale
+		{
+			get
+			{
+				float minScale = .1f;
+
+				if (Dust.dCount == 0.5)
+					minScale = 0.11f;
+
+				if (Dust.dCount == 0.6)
+					minScale = 0.13f;
+
+				if (Dust.dCount == 0.7)
+					minScale = 0.16f;
+
+				if (Dust.dCount == 0.8)
+					minScale = 0.22f;
+
+				if (Dust.dCount == 0.9)
+					minScale = 0.25f;
+
+				return minScale;
+			}
+		}
+
 		public static ModPacket NewPacket(this Mod mod, byte command)
 		{
 			var packet = mod.GetPacket();
@@ -560,6 +585,11 @@ namespace ArcaneOdyssey
 			return MathHelper.Clamp((rect.Width + rect.Height) / 2f / scale, min, max);
 		}
 
+		public static float RelativeBurstScale(this Rectangle rect, int scale = 200)
+		{
+			return MathHelper.Clamp((rect.Width + rect.Height) / 2f / scale * 1.5f, MinDustScale, 10f);
+		}
+
 		public static Imbuable Imbue(this Player player) => player?.ArcaneOdyssey()?.Imbue;
 		public static Imbuable Imbue(this Projectile projectile) => projectile?.ArcaneOdyssey()?.Imbue;
 		public static Imbuable Imbue(this Item item) => item?.ArcaneOdyssey()?.Imbue;
@@ -621,19 +651,6 @@ namespace ArcaneOdyssey
 			if (entity is NPC npc)
 			{
 				npc.StrikeInstantKill();
-			}
-		}
-
-		public static Vector2 Centre(this Dust dust, Vector2? newPos = null)
-		{
-			if (newPos.HasValue)
-			{
-				dust.position = newPos.Value - (dust.frame.Size() * dust.scale / 2f);
-				return dust.position;
-			}
-			else
-			{
-				return dust.position + (dust.frame.Size() * dust.scale / 2f);
 			}
 		}
 
@@ -857,7 +874,7 @@ namespace ArcaneOdyssey
 		/// <param name="colour"></param>
 		/// <param name="effects"></param>
 		/// <returns></returns>
-		public static ChainEndInfo DrawChain(Vector2 start, Vector2 end, Texture2D sprite, float scale = 1f, int maxframes = 1, int frame = 0, Color? colour = null, SpriteEffects effects = SpriteEffects.None, SpriteBatch batch = null)
+		public static ChainEndInfo DrawChain(Vector2 start, Vector2 end, Texture2D sprite, float scale = 1f, int maxframes = 1, int frame = 0, Color? colour = null, SpriteEffects effects = SpriteEffects.None, SpriteBatch batch = null, float opacity = 1f)
 		{
 			batch ??= Main.spriteBatch;
 
@@ -887,8 +904,12 @@ namespace ArcaneOdyssey
 					length++;
 					start += start.DirectionTo(end) * width;
 					if (!colourisntnull)
-						colour = Lighting.GetColor(start.ToTileCoordinates());
-					batch.Draw(sprite, start - Main.screenPosition, source, colour.Value, rotation, size, scale, effects, 0); distance = start.Distance(end);
+					{
+						var lighting = Lighting.GetSubLight(start);
+						colour = new Color(lighting.X, lighting.Y, lighting.Z);
+					}
+					batch.Draw(sprite, start - Main.screenPosition, source, colour.Value * opacity, rotation, size, scale, effects, 0);
+					distance = start.Distance(end);
 
 					if (distance < width)
 					{

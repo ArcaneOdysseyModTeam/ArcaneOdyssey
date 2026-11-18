@@ -6,7 +6,7 @@
 
 		public override bool PreDraw(Dust dust)
 		{
-			Lighting.AddLight(dust.Centre(), Color.Lime.ToVector3() * dust.scale);
+			Lighting.AddLight(dust.position, Color.Lime.ToVector3() * dust.scale);
 			return base.PreDraw(dust);
 		}
 	}

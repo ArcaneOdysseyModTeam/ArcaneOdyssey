@@ -1,8 +1,8 @@
-﻿using ArcaneOdyssey.Gimmicks.Magic;
+﻿using ArcaneOdyssey.Dusts;
+using ArcaneOdyssey.Gimmicks.Magic;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Ancient;
 using ArcaneOdyssey.Imbues.Magic.Lost;
-using ArcaneOdyssey.Projectiles.Magic.Effects;
 using System;
 
 namespace ArcaneOdyssey.Imbues.Magic.Mythical
@@ -38,8 +38,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 
 		public override void KillEffects(Rectangle area, Entity source = null)
 		{
-			if (source is Projectile proj && Main.myPlayer == proj.owner)
-				Projectile.NewProjectile(source.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, proj.owner, ai0: area.RelativeScale(AetherExplosion.SpriteSize) * 1.5f);
+			base.KillEffects(area, source);
+			Dust.NewDustPerfect(area.Center(), ModContent.DustType<LightningBurst>(), newColor: Colour, Scale: area.RelativeBurstScale()).customData = Main.rand.Next(3, 6);
+		}
+		public override void ExplosionEffects(Vector2 position, float intensity = 1)
+		{
+			base.ExplosionEffects(position, intensity);
+			Dust.NewDustPerfect(position, ModContent.DustType<LightningBurst>(), newColor: Colour, Scale: intensity * 1.6f);
 		}
 
 		public override void RegisterMutations()

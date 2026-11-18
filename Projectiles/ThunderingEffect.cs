@@ -1,9 +1,9 @@
-﻿using ArcaneOdyssey.Imbues.Magic.Normal;
+﻿using ArcaneOdyssey.Dusts;
+using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Projectiles.Base;
-using Terraria.DataStructures;
 using System;
 using Terraria.Audio;
-using ArcaneOdyssey.Projectiles.Magic.Effects;
+using Terraria.DataStructures;
 
 namespace ArcaneOdyssey.Projectiles
 {
@@ -57,10 +57,7 @@ namespace ArcaneOdyssey.Projectiles
 			{
 				Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.WitherLightning, (Main.rand.NextFloat() - 0.5f) * 15f, (Main.rand.NextFloat() - 0.5f) * 15f, Scale: 1.2f).noGravity = true;
 			}
-			if (Main.myPlayer == Projectile.owner)
-			{
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, Projectile.owner, ai0: Projectile.Hitbox.RelativeScale(AetherExplosion.SpriteSize) * 1.5f);
-			}
+			Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<LightningBurst>(), newColor: Imbue?.Colour ?? default, Scale: .4f).customData = Main.rand.Next(3, 6);
 			SoundEngine.PlaySound(SoundID.DD2_LightningBugZap with { Volume = 2.25f }, Projectile.Center);
 			base.OnKill(timeLeft);
 		}
