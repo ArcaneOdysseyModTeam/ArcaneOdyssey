@@ -103,9 +103,6 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			{
 				Dust.NewDustDirect(position, 0, 0, ModContent.DustType<TintableElectric>(), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 1.2f * intensity).noGravity = true;
 			}
-
-		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
-		{
 			Dust.NewDustPerfect(position, ModContent.DustType<LightningBurst>(), newColor: Colour, Scale: intensity * 1.6f);
 		}
 

@@ -28,10 +28,10 @@ namespace ArcaneOdyssey.Projectiles.Magic.Minions
 		}
 
 
-		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic.Value), ModContent.GetInstance<WindMagic>().AttackPrefix + "RayEnd");
-		public Asset<Texture2D> MidSprite => ImbueID.Sets.Assets.raySprites[Imbue?.ID ?? WindMagic.StaticID] ?? base.Sprite;
-		public Asset<Texture2D> EndSprite => ImbueID.Sets.Assets.rayEndSprites[Imbue?.ID ?? WindMagic.StaticID] ?? base.Sprite;
-		public Asset<Texture2D> StartSprite => ImbueID.Sets.Assets.rayStartSprites[Imbue?.ID ?? WindMagic.StaticID] ?? base.Sprite;
+		public override string Texture => AOUtils.BlankTexture;
+		public Asset<Texture2D> MidSprite => Imbue?.Ray ?? base.Sprite;
+		public Asset<Texture2D> EndSprite => Imbue?.RayEnd ?? base.Sprite;
+		public Asset<Texture2D> StartSprite => Imbue?.RayStart ?? base.Sprite;
 
 
 		public override float Size => .75f;

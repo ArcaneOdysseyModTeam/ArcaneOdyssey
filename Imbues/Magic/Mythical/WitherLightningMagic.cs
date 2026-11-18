@@ -41,9 +41,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Mythical
 			base.KillEffects(area, source);
 			Dust.NewDustPerfect(area.Center(), ModContent.DustType<LightningBurst>(), newColor: Colour, Scale: area.RelativeBurstScale()).customData = Main.rand.Next(3, 6);
 		}
-		public override void ExplosionEffects(Vector2 position, float intensity = 1)
+
+		protected override void BaseExplosionEffects(Vector2 position, float intensity = 1)
 		{
-			base.ExplosionEffects(position, intensity);
+			base.BaseExplosionEffects(position, intensity);
 			Dust.NewDustPerfect(position, ModContent.DustType<LightningBurst>(), newColor: Colour, Scale: intensity * 1.6f);
 		}
 

@@ -133,10 +133,10 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			return true;
 		}
 
-		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic.Value), ModContent.GetInstance<WindMagic>().AttackPrefix + "RayEnd");
-		public Asset<Texture2D> MidSprite => ImbueID.Sets.Assets.raySprites[Imbue?.ID ?? WindMagic.StaticID] ?? base.Sprite;
-		public Asset<Texture2D> EndSprite => ImbueID.Sets.Assets.rayEndSprites[Imbue?.ID ?? WindMagic.StaticID] ?? base.Sprite;
-		public Asset<Texture2D> StartSprite => ImbueID.Sets.Assets.rayStartSprites[Imbue?.ID ?? WindMagic.StaticID] ?? base.Sprite;
+		public override string Texture => AOUtils.BlankTexture;
+		public Asset<Texture2D> MidSprite => Imbue?.Ray ?? base.Sprite;
+		public Asset<Texture2D> EndSprite => Imbue?.RayEnd ?? base.Sprite;
+		public Asset<Texture2D> StartSprite => Imbue?.RayStart ?? base.Sprite;
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
@@ -156,9 +156,9 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			if (Imbue is not null)
 			{
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
-				var info = AOUtils.DrawChain(Projectile.Center, End, MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(lightColor), mode);
-				var end = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);
-				Main.EntitySpriteDraw(EndSprite, end - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(lightColor), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				var info = AOUtils.DrawChain(Projectile.Center, End, MidSprite.Value, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(lightColor), mode);
+				var end = info.Ending + new Vector2(EndSprite.Width() * Projectile.scale, 0).RotatedBy(info.Rotation);
+				Main.EntitySpriteDraw(EndSprite.Value, end - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(lightColor), info.Rotation, new Vector2(EndSprite.Width(), EndSprite.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 				Projectile.rotation = info.Rotation;
 			}
 			return false;

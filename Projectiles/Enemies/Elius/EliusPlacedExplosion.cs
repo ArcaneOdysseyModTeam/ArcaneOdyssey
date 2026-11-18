@@ -75,6 +75,6 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			return base.PreDraw(ref lightColor);
 		}
 
-		public override Asset<Texture2D> Sprite => Imbue.Circle.Texture;
+		public override Asset<Texture2D> Sprite => AOUtils.Safe<MagicType>(Imbue)?.Circle.Texture ?? base.Sprite;
 	}
 }
