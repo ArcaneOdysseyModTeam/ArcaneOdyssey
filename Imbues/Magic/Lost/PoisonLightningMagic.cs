@@ -103,6 +103,10 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 			{
 				Dust.NewDustDirect(position, 0, 0, ModContent.DustType<TintableElectric>(), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), (Main.rand.NextFloat() - 0.5f) * (15f * intensity), Scale: 1.2f * intensity).noGravity = true;
 			}
+
+		public override void ExplosionEffects(Vector2 position, float intensity = 1f)
+		{
+			Dust.NewDustPerfect(position, ModContent.DustType<LightningBurst>(), newColor: Colour, Scale: intensity * 1.6f);
 		}
 
 		protected override void BaseKillEffects(Rectangle area, Entity source = null)
@@ -113,10 +117,7 @@ namespace ArcaneOdyssey.Imbues.Magic.Lost
 				spawnedDust.noGravity = true;
 				Dust.NewDust(area.TopLeft(), area.Width, area.Height, ModContent.DustType<TintableElectric>(), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), 8f * area.RelativeScale() * (Main.rand.NextFloat() - 0.5f), newColor: Colour, Scale: 1.2f * area.RelativeScale());
 			}
-			if (source is Projectile projectile && Main.myPlayer == projectile.owner)
-			{
-				Projectile.NewProjectile(source.GetSource_FromThis(), area.Center(), Vector2.Zero, ModContent.ProjectileType<LightningBurst>(), 0, 0, projectile.owner, ai0: area.RelativeScale(AetherExplosion.SpriteSize) * 1.5f);
-			}
+			Dust.NewDustPerfect(area.Center(), ModContent.DustType<LightningBurst>(), newColor: Colour, Scale: area.RelativeBurstScale()).customData = Main.rand.Next(3, 6);
 			SoundEngine.PlaySound(ImbueSound, area.Center());
 		}
 

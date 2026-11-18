@@ -115,11 +115,11 @@ namespace ArcaneOdyssey.Projectiles.Enemies
 				Projectile.scale *= 1.25f;
 				SpriteEffects mode = Projectile.spriteDirection > 0 ? SpriteEffects.None : FlippedMode;
 				var col = Imbue.Colour;
-				var info = AOUtils.DrawChain(Projectile.Center, end.GetValueOrDefault(origin), MidSprite, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(col), mode);
+				var info = AOUtils.DrawChain(Projectile.Center, end.GetValueOrDefault(origin), MidSprite.Value, Projectile.scale, Main.projFrames[Type], Projectile.frame, Projectile.GetAlpha(col), mode);
 				var frame = StartSprite.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
-				Main.EntitySpriteDraw(StartSprite, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(col), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
-				var ending = info.Ending + new Vector2(EndSprite.Width * Projectile.scale, 0).RotatedBy(info.Rotation);
-				Main.EntitySpriteDraw(EndSprite, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(col), info.Rotation, new Vector2(EndSprite.Width, EndSprite.Height / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
+				Main.EntitySpriteDraw(StartSprite.Value, Projectile.Center - Main.screenPosition, frame, Projectile.GetAlpha(col), info.Rotation, frame.Size() / 2f, Projectile.scale, mode);
+				var ending = info.Ending + new Vector2(EndSprite.Width() * Projectile.scale, 0).RotatedBy(info.Rotation);
+				Main.EntitySpriteDraw(EndSprite.Value, ending - Main.screenPosition, EndSprite.Frame(1, Main.projFrames[Type], 0, info.FinalFrame), Projectile.GetAlpha(col), info.Rotation, new Vector2(EndSprite.Width(), EndSprite.Height() / Main.projFrames[Type]) / 2f, Projectile.scale, mode);
 				Projectile.scale /= 1.25f;
 			}
 			return false;

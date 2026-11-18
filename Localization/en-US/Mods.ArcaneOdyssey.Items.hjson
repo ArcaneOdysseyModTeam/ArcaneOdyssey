@@ -199,6 +199,23 @@ Consumable: {
 			'''
 		CanBeAdded: Can have Atlantean Essence applied
 	}
+
+	SealedChests: {
+		UnlockedBronzeSealedChest: {
+			DisplayName: Bronze Sealed Chest
+			Tooltip: ""
+		}
+
+		UnlockedDarkSealedChest: {
+			DisplayName: Dark Sealed Chest
+			Tooltip: ""
+		}
+
+		UnlockedNimbusSealedChest: {
+			DisplayName: Nimbus Sealed Chest
+			Tooltip: ""
+		}
+	}
 }
 
 Blocks: {
@@ -460,16 +477,26 @@ Edgelord: {
 	Tooltip: ""
 }
 
-SealedChests: {
-	DarkSealedChest: {
-		DisplayName: Dark Unsealed Chest
-		Tooltip: ""
-	}
-}
-
 Pickups: {
 	ArgosKey: {
 		DisplayName: General's Key
 		Tooltip: A door opens somewhere inside the fortress...
+	}
+
+	SealedChests: {
+		BronzeSealedChest: {
+			DisplayName: Bronze Sealed Chest
+			Tooltip: ""
+		}
+
+		DarkSealedChest: {
+			DisplayName: Dark Sealed Chest
+			Tooltip: ""
+		}
+
+		NimbusSealedChest: {
+			DisplayName: Nimbus Sealed Chest
+			Tooltip: ""
+		}
 	}
 }

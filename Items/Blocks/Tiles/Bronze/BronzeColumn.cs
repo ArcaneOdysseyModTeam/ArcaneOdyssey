@@ -13,6 +13,7 @@ namespace ArcaneOdyssey.Items.Blocks.Tiles.Bronze
 		{
 			base.SetStaticDefaults();
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 100;
+			AddToArray(ref ItemID.Sets.ItemsForStuffCannon);
 		}
 
 		public override void SetDefaults()

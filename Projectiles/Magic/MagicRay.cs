@@ -133,10 +133,10 @@ namespace ArcaneOdyssey.Projectiles.Magic
 			return true;
 		}
 
-		public override string Texture => AOUtils.BlankTexture;
-		public Texture2D MidSprite => Imbue?.Ray?.Value ?? Sprite.Value;
-		public Texture2D EndSprite => Imbue?.RayEnd?.Value ?? Sprite.Value;
-		public Texture2D StartSprite => Imbue?.RayStart?.Value ?? Sprite.Value;
+		public override string Texture => typeof(WindMagic).FullName.Replace('.', '/').Replace(nameof(WindMagic.Value), ModContent.GetInstance<WindMagic>().AttackPrefix + "RayEnd");
+		public Asset<Texture2D> MidSprite => ImbueID.Sets.Assets.raySprites[Imbue?.ID ?? WindMagic.StaticID] ?? base.Sprite;
+		public Asset<Texture2D> EndSprite => ImbueID.Sets.Assets.rayEndSprites[Imbue?.ID ?? WindMagic.StaticID] ?? base.Sprite;
+		public Asset<Texture2D> StartSprite => ImbueID.Sets.Assets.rayStartSprites[Imbue?.ID ?? WindMagic.StaticID] ?? base.Sprite;
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{

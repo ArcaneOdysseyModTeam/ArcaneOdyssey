@@ -16,6 +16,19 @@ namespace ArcaneOdyssey.Projectiles.Base
 			Projectile.Kill();
 		}
 
+		public void NetUpdate()
+		{
+			Projectile.netSpam = 0;
+			Projectile.netUpdate = true;
+		}
+
+		public override void SetDefaults()
+		{
+			Projectile.scale *= Size;
+		}
+
+		public virtual float Size => 1f;
+
 		public virtual SpriteEffects FlippedMode => SpriteEffects.FlipVertically;
 
 

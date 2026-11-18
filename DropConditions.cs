@@ -277,22 +277,55 @@ namespace ArcaneOdyssey
 		public string GetConditionDescription() => description;
 	}
 
-	public class GalleonsRule(int min, int max) : IItemDropRule
+	public class GalleonsRule : IItemDropRule
 	{
-		public int min = AOUtils.GalleonToCopper(min);
-		public int max = AOUtils.GalleonToCopper(max);
+		public int min;
+		public int max;
 
-		public List<IItemDropRuleChainAttempt> ChainedRules { get; private set; }
+		public GalleonsRule(int min, int max)
+		{
+			this.min = AOUtils.GalleonToCopper(min);
+			this.max = AOUtils.GalleonToCopper(max);
+		}
+
+		public GalleonsRule(int value)
+		{
+			min = AOUtils.GalleonToCopper(value);
+			max = AOUtils.GalleonToCopper((7f * value).Pow(.6315f).Round());
+		}
+
+		public List<IItemDropRuleChainAttempt> ChainedRules { get; private set; } = [];
 
 		public bool CanDrop(DropAttemptInfo info) => true;
 
 		public void ReportDroprates(List<DropRateInfo> drops, DropRateInfoChainFeed ratesInfo)
 		{
-			var avg = (min + max) / 2;
+			Dictionary<int, int> min = [];
+			Dictionary<int, int> max = [];
 
-			foreach ((int itemId, int count) in CoinsRule.ToCoins(avg))
+
+			foreach ((int itemId, int count) in CoinsRule.ToCoins(this.min))
 			{
-				drops.Add(new DropRateInfo(itemId, count, count, ratesInfo.parentDroprateChance, ratesInfo.conditions));
+				min.Add(itemId, count);
+			}
+			foreach ((int itemId, int count) in CoinsRule.ToCoins(this.max))
+			{
+				max.Add(itemId, count);
+			}
+
+			foreach (var val in max)
+			{
+				min.TryAdd(val.Key, 0);
+			}
+
+			foreach (var val in min)
+			{
+				max.TryAdd(val.Key, 0);
+			}
+
+			foreach ((int itemId, int count) in max)
+			{
+				drops.Add(new DropRateInfo(itemId, Math.Min(min[itemId], count), Math.Max(count, min[itemId]), ratesInfo.parentDroprateChance, ratesInfo.conditions));
 			}
 
 			Chains.ReportDroprates(ChainedRules, 1, drops, ratesInfo);
@@ -300,7 +333,7 @@ namespace ArcaneOdyssey
 
 		public ItemDropAttemptResult TryDroppingItem(DropAttemptInfo info)
 		{
-			var amount = Main.rand.Next(min, max + 1);
+			var amount = Main.rand.Next(Math.Min(min, max), Math.Max(max + 1, min + 1));
 			foreach ((int itemId, int count) in CoinsRule.ToCoins(amount))
 			{
 				CommonCode.DropItem(info, itemId, count);

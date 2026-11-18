@@ -23,7 +23,7 @@ namespace ArcaneOdyssey.Items.Weapons.Bronze
 			Item.height = Item.height = 64;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.shoot = ModContent.ProjectileType<MountainWind>();
-			Item.shootSpeed = 5;
+			Item.shootSpeed = 5f * .9f;
 		}
 
 		public override void SetStaticDefaults()

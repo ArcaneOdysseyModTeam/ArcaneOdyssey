@@ -318,8 +318,8 @@ namespace ArcaneOdyssey
 				float weight = 3.5f; // before queen bee
 				Func<bool> downed = () => DownedBosses.DownedArgos;
 				int bossType = ModContent.NPCType<GeneralArgos>();
-				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Bosses.{internalName}.SpawnInfo"); 
-				
+				LocalizedText spawnInfo = Mod.CoolCustomLocalization($"NPCs.Bosses.{internalName}.SpawnInfo");
+
 				bossChecklist.Call(
 				"LogBoss",
 				Mod,
@@ -329,7 +329,7 @@ namespace ArcaneOdyssey
 				bossType,
 				new Dictionary<string, object>()
 				{
-					["collectibles"] = new List<int> {  },
+					["collectibles"] = new List<int> { },
 					["spawnInfo"] = spawnInfo
 				});
 			}
@@ -636,27 +636,63 @@ namespace ArcaneOdyssey
 
 		public override void Load()
 		{
-			if (ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			On_Dust.NewDust += DustScaleFixer;
+			On_Dust.NewDustDirect += DirectDustScaleFixer;
+			On_Dust.NewDustPerfect += PerfectDustScaleFixer;
+			On_Dust.UpdateDust += GeneralDustScaleFixer;
+		}
+
+		private static void GeneralDustScaleFixer(On_Dust.orig_UpdateDust orig)
+		{
+			// wish there was a way to check if ModDust.Update is overridden
+			for (int i = 0; i < Main.maxDust; i++)
 			{
-				On_Dust.NewDust += DustScaleFixer;
-				On_Dust.NewDustDirect += DirectDustScaleFixer;
-				On_Dust.NewDustPerfect += PerfectDustScaleFixer;
+				Dust dust = Main.dust[i];
+				if (i < Main.maxDustToDraw)
+				{
+					if (!dust.active)
+						continue;
+					if (dust.firstFrame)
+					{
+						var modDust = ModContent.GetModDust(dust.type);
+						if (modDust == null || modDust.Mod is ArcaneOdysseyMod || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+						{
+							dust.scale = dust.scale.Clamp(AOUtils.MinDustScale, 10f);
+						}
+					}
+				}
 			}
+			orig();
 		}
 
-		private Dust PerfectDustScaleFixer(On_Dust.orig_NewDustPerfect orig, Vector2 Position, int Type, Vector2? Velocity, int Alpha, Color newColor, float Scale)
+		private static Dust PerfectDustScaleFixer(On_Dust.orig_NewDustPerfect orig, Vector2 Position, int Type, Vector2? Velocity, int Alpha, Color newColor, float Scale)
 		{
-			return orig(Position, Type, Velocity, Alpha, newColor, Scale.Clamp(1e-5f, 10f));
+			var modDust = ModContent.GetModDust(Type);
+			if (modDust == null || modDust.Mod is ArcaneOdysseyMod || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			{
+				Scale = Scale.Clamp(AOUtils.MinDustScale, 10f);
+			}
+			return orig(Position, Type, Velocity, Alpha, newColor, Scale);
 		}
 
-		private Dust DirectDustScaleFixer(On_Dust.orig_NewDustDirect orig, Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)
+		private static Dust DirectDustScaleFixer(On_Dust.orig_NewDustDirect orig, Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)
 		{
-			return orig(Position, Width, Height, Type, SpeedX, SpeedY, Alpha, newColor, Scale.Clamp(1e-5f, 10f));
+			var modDust = ModContent.GetModDust(Type);
+			if (modDust == null || modDust.Mod is ArcaneOdysseyMod || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			{
+				Scale = Scale.Clamp(AOUtils.MinDustScale, 10f);
+			}
+			return orig(Position, Width, Height, Type, SpeedX, SpeedY, Alpha, newColor, Scale);
 		}
 
-		private int DustScaleFixer(On_Dust.orig_NewDust orig, Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)
+		private static int DustScaleFixer(On_Dust.orig_NewDust orig, Vector2 Position, int Width, int Height, int Type, float SpeedX, float SpeedY, int Alpha, Color newColor, float Scale)
 		{
-			return orig(Position, Width, Height, Type, SpeedX, SpeedY, Alpha, newColor, Scale.Clamp(1e-5f, 10f));
+			var modDust = ModContent.GetModDust(Type);
+			if (modDust == null || modDust.Mod is ArcaneOdysseyMod || ArcaneOdysseyConfig.Instance.AffectsOtherMods)
+			{
+				Scale = Scale.Clamp(AOUtils.MinDustScale, 10f);
+			}
+			return orig(Position, Width, Height, Type, SpeedX, SpeedY, Alpha, newColor, Scale);
 		}
 	}
 

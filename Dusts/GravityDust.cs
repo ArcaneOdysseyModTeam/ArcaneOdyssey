@@ -9,7 +9,7 @@ namespace ArcaneOdyssey.Dusts
 			dust.rotation += 0.2f;
 			dust.noGravity = true;
 			dust.position += new Vector2((float)Math.Cos(dust.rotation), (float)Math.Sin(dust.rotation));
-			Lighting.AddLight(dust.Centre(), TorchID.Purple);
+			Lighting.AddLight(dust.position, TorchID.Purple);
 			return true;
 		}
 	}

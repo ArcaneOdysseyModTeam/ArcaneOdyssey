@@ -4,7 +4,7 @@
 	{
 		public override bool PreDraw(Dust dust)
 		{
-			Lighting.AddLight(dust.Centre(), TorchID.Red);
+			Lighting.AddLight(dust.position, TorchID.Red);
 			return base.PreDraw(dust);
 		}
 	}

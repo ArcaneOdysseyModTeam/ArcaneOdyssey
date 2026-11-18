@@ -26,7 +26,7 @@ namespace ArcaneOdyssey.Items.Weapons
 		{
 			base.SetDefaults();
 			Item.width = 86;
-			Item.shootSpeed = 5;
+			Item.shootSpeed = 5 * .65f;
 			Item.height = 86;
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTurn = true;

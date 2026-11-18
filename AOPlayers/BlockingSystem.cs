@@ -6,14 +6,26 @@ namespace ArcaneOdyssey.AOPlayers
 {
 	public partial class AOPlayer
 	{
-		public bool Blocking { get; private set; }
+		public bool Blocking { get; internal set; }
 		private bool wasBlocking;
 
-		public bool Parrying => Blocking && blockingTime > (MaxBlock - 25);
+		public bool Parrying => Blocking && blockingTime > (MaxBlock - ParryTime);
 
 		public byte blockingTime = MaxBlock;
 
-		public const byte MaxBlock = 120;
+		public const byte MaxBlock = 120, ParryTime = 25;
+
+		public static byte IndicatorTime
+		{
+			get
+			{
+				if (Main.expertMode)
+				{
+					return 0; // no indicator
+				}
+				return MaxBlock; // 120 frames
+			}
+		}
 
 		public void HandleBlocking()
 		{
@@ -25,7 +37,7 @@ namespace ArcaneOdyssey.AOPlayers
 					wasBlocking = Blocking;
 					if (!AOUtils.Singleplayer)
 					{
-						var packet = ArcaneOdysseyMod.NewPacket(Packet);
+						var packet = ArcaneOdysseyMod.NewPacket(BlockPacket);
 						packet.Write(Blocking);
 						packet.Write(blockingTime);
 						packet.Send();
@@ -34,20 +46,7 @@ namespace ArcaneOdyssey.AOPlayers
 			}
 		}
 
-		public static byte Packet;
-
-		public void RegisterPacket()
-		{
-			ArcaneOdysseyMod.HandleExtraPacket += SetBlockState;
-			Packet = ArcaneOdysseyMod.PacketID.ExtraHandle++;
-		}
-
-		public override void Unload()
-		{
-			ArcaneOdysseyMod.HandleExtraPacket -= SetBlockState;
-			ArcaneOdysseyMod.PacketID.ExtraHandle--;
-		}
-
+		public static byte BlockPacket => ModContent.GetInstance<SyncBlockingSystem>().Packet;
 		public override void FrameEffects()
 		{
 			if (!Main.dedServ)
@@ -62,35 +61,6 @@ namespace ArcaneOdyssey.AOPlayers
 				if (Parrying)
 				{
 					Player.shieldRaised = true;
-				}
-			}
-		}
-
-		private static void SetBlockState(BinaryReader reader, int whoAmI, byte command)
-		{
-			if (command == Packet)
-			{
-				bool blocking;
-				byte blockingTime;
-				if (Main.dedServ)
-				{
-					blocking = reader.ReadBoolean();
-					blockingTime = reader.ReadByte();
-					Main.player[whoAmI].ArcaneOdyssey().Blocking = blocking;
-					Main.player[whoAmI].ArcaneOdyssey().blockingTime = blockingTime;
-					var packet = ArcaneOdysseyMod.NewPacket(Packet);
-					packet.Write((byte)whoAmI);
-					packet.Write(blocking);
-					packet.Write(blockingTime);
-					packet.Send(ignoreClient: whoAmI);
-				}
-				else
-				{
-					whoAmI = reader.ReadByte();
-					blocking = reader.ReadBoolean();
-					blockingTime = reader.ReadByte();
-					Main.player[whoAmI].ArcaneOdyssey().Blocking = blocking;
-					Main.player[whoAmI].ArcaneOdyssey().blockingTime = blockingTime;
 				}
 			}
 		}
@@ -151,6 +121,38 @@ namespace ArcaneOdyssey.AOPlayers
 				else
 				{
 					blockingTime = (byte)Math.Clamp(blockingTime + 2, 0, MaxBlock);
+				}
+			}
+		}
+	}
+
+	public class SyncBlockingSystem : AONetSystem
+	{
+		protected override void HandlePacket(BinaryReader reader, int whoAmI, byte command)
+		{
+			if (command == Packet)
+			{
+				bool blocking;
+				byte blockingTime;
+				if (Main.dedServ)
+				{
+					blocking = reader.ReadBoolean();
+					blockingTime = reader.ReadByte();
+					Main.player[whoAmI].ArcaneOdyssey().Blocking = blocking;
+					Main.player[whoAmI].ArcaneOdyssey().blockingTime = blockingTime;
+					var packet = ArcaneOdysseyMod.NewPacket(Packet);
+					packet.Write((byte)whoAmI);
+					packet.Write(blocking);
+					packet.Write(blockingTime);
+					packet.Send(ignoreClient: whoAmI);
+				}
+				else
+				{
+					whoAmI = reader.ReadByte();
+					blocking = reader.ReadBoolean();
+					blockingTime = reader.ReadByte();
+					Main.player[whoAmI].ArcaneOdyssey().Blocking = blocking;
+					Main.player[whoAmI].ArcaneOdyssey().blockingTime = blockingTime;
 				}
 			}
 		}

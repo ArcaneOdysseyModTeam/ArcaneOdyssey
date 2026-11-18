@@ -4,7 +4,7 @@ namespace ArcaneOdyssey.Dusts
 	{
 		public override bool PreDraw(Dust dust)
 		{
-			Lighting.AddLight(dust.Centre(), TorchID.Ice);
+			Lighting.AddLight(dust.position, TorchID.Ice);
 			return base.PreDraw(dust);
 		}
 	}

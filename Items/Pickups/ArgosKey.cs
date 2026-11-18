@@ -24,7 +24,7 @@ namespace ArcaneOdyssey.Items.Pickups
 				Main.NewText(Tooltip);
 				if (AOKeybinds.BlockAoEAttack.GetAssignedKeys().Count == 0)
 				{
-					Main.NewText(Mod.CustomLocalization(this.GetLocalizationKey("NoBlock")), Color.Red);
+					Main.NewText(Mod.CustomLocalization(ModContent.GetInstance<GeneralArgos>().GetLocalizationKey("NoBlock")), Color.Red);
 				}
 				if (!AOUtils.Singleplayer)
 					Mod.NewPacket(ArgosKeyPickupSystem.Packet).Send();

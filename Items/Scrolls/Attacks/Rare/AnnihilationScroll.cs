@@ -22,6 +22,7 @@ namespace ArcaneOdyssey.Items.Scrolls.Attacks.Rare
 		public override int Scroll => ModContent.ItemType<AnnihilationScroll>();
 
 		public override int Shoot => ModContent.ProjectileType<AnnihilationSpell>();
+		public override float Speed => .3f;
 
 		public override bool Attack(Player player, Imbuable imbue, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback)
 		{
