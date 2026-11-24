@@ -86,8 +86,9 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
-			height = width = 1;
+			height = width = 2;
 			fallThrough = true;
+			hitboxCenterFrac = new Vector2((Projectile.velocity.SafeNormalize().X + 1f) / 2f, (Projectile.velocity.SafeNormalize().Y + 1f) / 2f);
 			return true;
 		}
 
@@ -95,6 +96,7 @@ namespace ArcaneOdyssey.Projectiles.Abilities
 		{
 			Projectile.velocity = Vector2.Zero;
 			Projectile.timeLeft = 30;
+			Projectile.tileCollide = false;
 			Projectile.ai[1] = 1;
 			Projectile.ai[2] = 1;
 			return false;
