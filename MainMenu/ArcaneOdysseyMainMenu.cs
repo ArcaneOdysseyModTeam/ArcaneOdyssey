@@ -199,7 +199,7 @@ namespace ArcaneOdyssey.MainMenu
 	{
 		private MainMenuStyle SelectedTitle = Style;
 		public override string Name => SelectedTitle.Name;
-		public override string DisplayName => Mod.CustomLocalization("MenuStyle", SelectedTitle.DisplayName.Value).Value;
+		public override string DisplayName => ArcaneOdysseyMod.Instance.CustomLocalization("MenuStyle", SelectedTitle.DisplayName.Value).Value;
 		public override bool IsLoadingEnabled(Mod mod) => !(Main.dedServ || SelectedTitle.Name.IsNullOrWhiteSpace());
 
 		public override bool IsAvailable => !ArcaneOdysseyClientConfig.Instance.RandomMenuStyle && (SelectedTitle.Requirement is null || SelectedTitle.Requirement());
