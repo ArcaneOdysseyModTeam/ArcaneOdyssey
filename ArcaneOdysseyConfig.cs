@@ -35,6 +35,9 @@ namespace ArcaneOdyssey
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 
 		[DefaultValue(true)]
+		public bool RandomMenuStyle { get; set; }
+
+		[DefaultValue(true)]
 		public bool ItemTypeTooltips { get; set; }
 
 		[DefaultValue(true)]

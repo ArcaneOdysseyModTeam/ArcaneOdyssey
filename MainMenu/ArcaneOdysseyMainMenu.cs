@@ -1,8 +1,8 @@
-﻿using ArcaneOdyssey.NPCs.Bosses;
-using ArcaneOdysseyMusic;
+﻿using ArcaneOdysseyMusic;
 using System;
 using System.Collections.Generic;
 using Terraria.GameContent.Events;
+using static ArcaneOdyssey.MainMenu.ArcaneOdysseyMainMenu;
 
 namespace ArcaneOdyssey.MainMenu
 {
@@ -15,6 +15,7 @@ namespace ArcaneOdyssey.MainMenu
 			public float depth;
 			public Vector2 velocity;
 			public Vector2 position;
+			public MainMenuStyle Style { get; }
 
 			public static Asset<Texture2D> Texture = Asset<Texture2D>.Empty;
 
@@ -30,11 +31,12 @@ namespace ArcaneOdyssey.MainMenu
 
 			public void Draw()
 			{
-				Main.spriteBatch.Draw(Texture.Value, position, null, SelectedTitle.Colour, 0, Texture.Size() / 2f, ((3f * depth) - (2f * depth.Pow())) / 2f, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(Texture.Value, position, null, Style.Colour, 0, Texture.Size() / 2f, ((3f * depth) - (2f * depth.Pow())) / 2f, SpriteEffects.None, 0f);
 			}
 
-			public Raindrop()
+			public Raindrop(MainMenuStyle style)
 			{
+				Style = style;
 				depth = Main.rand.NextFloat(1, .25f);
 				maxlife = (int)Math.Round(100f * depth);
 				velocity = new Vector2(0, 20) * depth;
@@ -44,26 +46,27 @@ namespace ArcaneOdyssey.MainMenu
 
 		public struct MainMenuStyle
 		{
-			public MusicTrack Track;
+			public MusicTrack Track { get; }
 
-			public Color Colour;
+			public Color Colour { get; }
 
-			public string Name;
+			public string Name { get; }
 
-			public LocalizedText DisplayName;
+			public readonly LocalizedText DisplayName => Mod.CoolCustomLocalization($"MainMenuStyle.{Name}");
 			public Asset<Texture2D> BackgroundTexture;
 
-			public Func<bool> Requirement;
+			public Mod Mod { get; }
+
+			public Func<bool> Requirement { get; }
 
 			public MainMenuStyle(MusicTrack track, Color colour, string name, Func<bool> condition = null, Mod mod = null, string path = "MainMenu/Images")
 			{
 				Track = track;
 				Colour = colour;
 				Name = name;
+				Mod = mod ?? ArcaneOdysseyMod.Instance;
 				Requirement = condition;
-				mod ??= ArcaneOdysseyMod.Instance;
-				DisplayName = mod.CoolCustomLocalization($"MainMenuStyle.{Name}");
-				BackgroundTexture = AOUtils.Request($"{mod.Name}/{path}/{Name}", ref BackgroundTexture, AssetRequestMode.ImmediateLoad);
+				BackgroundTexture = AOUtils.Request($"{Mod.Name}/{path}/{Name}", ref BackgroundTexture, AssetRequestMode.ImmediateLoad);
 			}
 		}
 
@@ -71,12 +74,12 @@ namespace ArcaneOdyssey.MainMenu
 
 		public override string DisplayName => Mod.CustomLocalization("MenuStyle", SelectedTitle.DisplayName.Value).Value;
 
-		private static Asset<Texture2D> cachedLogo;
+		internal static Asset<Texture2D> cachedLogo;
 		public override Asset<Texture2D> Logo => AOUtils.Request(Mod.Name + "/Assets/TitleLogo", ref cachedLogo);
 
 		public override int Music => SelectedTitle.Track.MusicSlot;
 
-		public override bool IsAvailable => Titles.Count > 0;
+		public override bool IsAvailable => ArcaneOdysseyClientConfig.Instance.RandomMenuStyle && Titles.Count > 0;
 
 		public override void Update(bool isOnTitleScreen)
 		{
@@ -86,11 +89,13 @@ namespace ArcaneOdyssey.MainMenu
 
 		public override void SetStaticDefaults()
 		{
-			Titles.AddRange(new(MusicTrack.TitleTheme2, Color.White, "Classic"), new(MusicTrack.TitleTheme, Color.Transparent, "Pixel"), new(MusicTrack.DarkSea, Color.Gray, "Dragon"));
-			Titles.Add(new(MusicTrack.Djin, Color.Gray, "Djin", GlobalData.IsDefeated<LordElius>));
+			foreach (var title in Titles)
+			{
+				_ = title.DisplayName;
+			}
 		}
 
-		public static void DrawAOBackground(SpriteBatch spriteBatch)
+		internal static void DrawAOBackground(SpriteBatch spriteBatch)
 		{
 			if (SelectedTitle.Name.IsNullOrWhiteSpace())
 			{
@@ -116,22 +121,24 @@ namespace ArcaneOdyssey.MainMenu
 
 				spriteBatch.Draw(SelectedTitle.BackgroundTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
 			}
-
-			spriteBatch.End();
-
-			if (Raindrops.Count <= 800)
+			if (SelectedTitle.Colour != Color.Transparent)
 			{
-				Raindrops.Add(new());
-			}
+				spriteBatch.End();
 
-			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
+				if (Raindrops.Count <= 800)
+				{
+					Raindrops.Add(new(SelectedTitle));
+				}
 
-			Raindrops.RemoveAll(e => e.lifevalue >= e.maxlife);
+				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
 
-			foreach (Raindrop drop in Raindrops)
-			{
-				drop.Update();
-				drop.Draw();
+				Raindrops.RemoveAll(e => e.lifevalue >= e.maxlife);
+
+				foreach (Raindrop drop in Raindrops)
+				{
+					drop.Update();
+					drop.Draw();
+				}
 			}
 		}
 
@@ -149,6 +156,10 @@ namespace ArcaneOdyssey.MainMenu
 		}
 
 		internal static MainMenuStyle SelectedTitle;
+
+		/// <summary>
+		/// Must be added to *IN* <seealso cref="Mod.Load"/>
+		/// </summary>
 		public static List<MainMenuStyle> Titles = [];
 
 		public override void OnSelected()
@@ -167,5 +178,96 @@ namespace ArcaneOdyssey.MainMenu
 		}
 
 		public override bool IsLoadingEnabled(Mod mod) => !Main.dedServ;
+	}
+
+	public class MainMenuLoader : ModSystem
+	{
+		public override void OnModLoad()
+		{
+			if (!Main.dedServ)
+			{
+				foreach (var title in Titles)
+				{
+					title.Mod.AddContent(new NonRandomMenu(title));
+				}
+			}
+		}
+	}
+
+	[Autoload(false)]
+	public class NonRandomMenu(MainMenuStyle Style) : ModMenu
+	{
+		private MainMenuStyle SelectedTitle = Style;
+		public override string Name => SelectedTitle.Name;
+		public override string DisplayName => ArcaneOdysseyMod.Instance.CustomLocalization("MenuStyle", SelectedTitle.DisplayName.Value).Value;
+		public override bool IsLoadingEnabled(Mod mod) => !(Main.dedServ || SelectedTitle.Name.IsNullOrWhiteSpace());
+
+		public override bool IsAvailable => !ArcaneOdysseyClientConfig.Instance.RandomMenuStyle && (SelectedTitle.Requirement is null || SelectedTitle.Requirement());
+		public override Asset<Texture2D> Logo => AOUtils.Request(Mod.Name + "/Assets/TitleLogo", ref cachedLogo);
+
+		private void DrawAOBackground(SpriteBatch spriteBatch)
+		{
+			if (!CreditsRollEvent.IsEventOngoing)
+			{
+				Vector2 drawOffset = Vector2.Zero;
+				float xScale = (float)Main.screenWidth / SelectedTitle.BackgroundTexture.Width();
+				float yScale = (float)Main.screenHeight / SelectedTitle.BackgroundTexture.Height();
+				float scale = xScale;
+
+				if (xScale != yScale)
+				{
+					if (yScale > xScale)
+					{
+						scale = yScale;
+						drawOffset.X -= (SelectedTitle.BackgroundTexture.Width() * scale - Main.screenWidth) * 0.5f;
+					}
+					else
+						drawOffset.Y -= (SelectedTitle.BackgroundTexture.Height() * scale - Main.screenHeight) * 0.5f;
+				}
+
+				spriteBatch.Draw(SelectedTitle.BackgroundTexture.Value, drawOffset, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
+			}
+
+			if (SelectedTitle.Colour != Color.Transparent)
+			{
+
+				spriteBatch.End();
+
+				if (Raindrops.Count <= 800)
+				{
+					Raindrops.Add(new(SelectedTitle));
+				}
+
+				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
+
+				Raindrops.RemoveAll(e => e.lifevalue >= e.maxlife);
+
+				foreach (Raindrop drop in Raindrops)
+				{
+					drop.Update();
+					drop.Draw();
+				}
+			}
+		}
+
+		public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
+		{
+			DrawAOBackground(spriteBatch);
+			spriteBatch.End();
+
+			logoRotation = 0f;
+			logoScale = .85f;
+			drawColor = Color.White;
+			logoDrawCenter.Y = Logo.Height() / 2f * logoScale;
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
+			return true;
+		}
+
+		public override void Update(bool isOnTitleScreen)
+		{
+			Main.time = 27000.0;
+			Main.dayTime = true;
+		}
+		public override int Music => SelectedTitle.Track.MusicSlot;
 	}
 }

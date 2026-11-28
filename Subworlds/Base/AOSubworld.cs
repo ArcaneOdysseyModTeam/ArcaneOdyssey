@@ -238,14 +238,6 @@ namespace ArcaneOdyssey.Subworlds.Base
 			{
 				AllSubworlds[AOSubworld.Get(page).OrderNum] = AOSubworld.Get(page);
 			}
-
-			foreach (var subworld in AllSubworlds)
-			{
-				if (subworld.MenuStyle.HasValue)
-				{
-					ArcaneOdysseyMainMenu.Titles.Add(subworld.MenuStyle.Value);
-				}
-			}
 		}
 
 		public override void ResizeArrays()

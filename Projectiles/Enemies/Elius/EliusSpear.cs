@@ -3,6 +3,7 @@ using ArcaneOdyssey.Items.Weapons.RavennaNoble;
 using ArcaneOdyssey.NPCs.Bosses;
 using ArcaneOdyssey.Projectiles.Base;
 using System;
+using System.Collections.Generic;
 
 namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 {
@@ -18,14 +19,50 @@ namespace ArcaneOdyssey.Projectiles.Enemies.Elius
 			Projectile.friendly = false;
 			Projectile.penetrate = -1;
 			Projectile.height = Projectile.width = 30;
-			Projectile.ignoreWater = true;
-			Projectile.tileCollide = false;
+			Projectile.hide = true;
 		}
+
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			behindNPCsAndTiles.Add(index);
+		}
+
 		public override void SetStaticDefaults()
 		{
+			ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
 			ProjectileID.Sets.TrailingMode[Type] = 0;
 			ProjectileID.Sets.TrailCacheLength[Type] = 3;
 		}
+
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+		{
+			fallThrough = true;
+			width = height = 2;
+			hitboxCenterFrac = new Vector2((Projectile.velocity.SafeNormalize().X + 1f) / 2f, (Projectile.velocity.SafeNormalize().Y + 1f) / 2f);
+			return true;
+		}
+
+		public override void ModifyDamageHitbox(ref Rectangle hitbox)
+		{
+			hitbox.Location += hitbox.Size().RotatedBy(Projectile.velocity.ToRotation(), new Vector2(0, hitbox.Height / 2f)).ToPoint();
+		}
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			Projectile.velocity = Vector2.Zero;
+			Projectile.tileCollide = false;
+			return false;
+		}
+
+		public override bool PreAI() => Projectile.velocity != Vector2.Zero;
+
+		public override bool? CanDamage()
+		{
+			if (Projectile.velocity == Vector2.Zero)
+				return false;
+			return null;
+		}
+
 		public override void AI()
 		{
 			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;

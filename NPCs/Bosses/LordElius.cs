@@ -150,7 +150,21 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			{
 				if (!secondphase)
 				{
+					EliusSecondPhaseCutsceneSystem.timeLeft = 200;
+					EliusSecondPhaseCutsceneSystem.justStarted = true;
+					CurrentState = 7;
+					FrameTimer = 0;
+					if (AOUtils.ServerOrSingleplayer)
+					{
+						Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusTrail>(), 0, 0f, -1, spawnLocation.X + (NPC.width / 2f), spawnLocation.Y + (NPC.height / 2f));
+					}
+					NPC.position = spawnLocation;
 					NPC.NPCDialogue(this.GetLocalizedValue("SecondPhaseMessage"), Imbue.Colour, true);
+					if (AOUtils.ServerOrSingleplayer)
+					{
+						Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center, Vector2.Zero, ModContent.ProjectileType<EliusPlacedExplosion>(), -1, 1f, -1).timeLeft = 200;
+					}
+					SoundEngine.PlaySound(SoundID.Thunder, NPC.Center);
 				}
 				secondphase = true;
 			}
@@ -476,7 +490,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 					else if (FrameTimer < 446f && FrameTimer >= 122f)
 					{
 						int swordTiming = !secondphase ? 40 : 24;
-						if ((int)FrameTimer % swordTiming == 4 && FrameTimer < 444f)
+						if (FrameTimer % swordTiming == 4 && FrameTimer < 444f)
 						{
 							NPC.NPCDialogue(Mod.CustomLocalization("ImbueStuff.Exclaim", !secondphase ? this.GetLocalizedValue("FlyingSlashMessage") : Mod.CustomLocalization("ImbueStuff.Space", Imbue.PrettyAttackPrefix.Value, this.GetLocalizedValue("FlyingSlashMessage")).Value).Value, !secondphase ? Color.Gold : Imbue.Colour, false);
 							SoundEngine.PlaySound(SoundID.Item1 with { Volume = 2.25f }, NPC.Center);
@@ -518,6 +532,13 @@ namespace ArcaneOdyssey.NPCs.Bosses
 							NPC.netUpdate = true;
 							CurrentState = moveSelectArrayOne[Main.rand.Next(4)];
 						}
+					}
+				}
+				else if (CurrentState == 7) // second phase cutscene
+				{
+					if (FrameTimer >= 200)
+					{
+						CurrentState = -1;
 					}
 				}
 				FrameTimer++; //increment frame
@@ -914,6 +935,24 @@ namespace ArcaneOdyssey.NPCs.Bosses
 
 		private int spearArmFrame, bowArmFrame, bowFrame;
 
+		public override bool? CanBeHitByItem(Player player, Item item)
+		{
+			if (CurrentState == 7)
+			{
+				return false;
+			}
+			return base.CanBeHitByItem(player, item);
+		}
+
+		public override bool? CanBeHitByProjectile(Projectile projectile)
+		{
+			if (CurrentState == 7)
+			{
+				return false;
+			}
+			return base.CanBeHitByProjectile(projectile);
+		}
+
 		public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			var dir = NPC.spriteDirection != 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
@@ -1105,6 +1144,55 @@ namespace ArcaneOdyssey.NPCs.Bosses
 			float coEfTwo = (((pointThree.Y - pointTwo.Y) / (pointThree.X - pointTwo.X)) - coEfOne) / (pointThree.X - pointOne.X);
 			float yPos = pointOne.Y + coEfOne * (xPos - pointOne.X) + coEfTwo * (xPos - pointOne.X) * (xPos - pointTwo.X);
 			return new Vector2(xPos, yPos);
+		}
+	}
+
+	public class EliusSecondPhaseCutsceneSystem : ModSystem
+	{
+		public static bool InProgress => timeLeft > 0;
+		public static bool justStarted;
+		public static int timeLeft;
+		private static float ogZoom = 1f;
+
+
+		public override void ModifyScreenPosition()
+		{
+			if (InProgress)
+			{
+				if (AOUtils.NPCAlive<LordElius>(out var elius))
+				{
+					Main.screenPosition = elius.Center - (Main.ScreenSize.ToVector2() / 2f);
+				}
+			}
+		}
+
+		public override void PreUpdatePlayers()
+		{
+			if (InProgress)
+			{
+				if (!Main.dedServ)
+				{
+					Main.ClosePlayerChat();
+					if (justStarted)
+					{
+						ogZoom = Main.GameZoomTarget;
+						justStarted = false;
+					}
+					Main.GameZoomTarget = 1.5f;
+				}
+			}
+		}
+
+		public override void PostUpdatePlayers()
+		{
+			if (InProgress)
+			{
+				timeLeft--;
+				if (timeLeft <= 0)
+				{
+					Main.GameZoomTarget = ogZoom;
+				}
+			}
 		}
 	}
 }

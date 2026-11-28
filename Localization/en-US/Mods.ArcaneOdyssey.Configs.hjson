@@ -70,4 +70,9 @@ ArcaneOdysseyClientConfig: {
 		Label: "[i:ArcaneOdyssey/GildedMusket] Gilded Musket Bar Offset"
 		Tooltip: ""
 	}
+
+	RandomMenuStyle: {
+		Label: "[i:1774] Random Menu Style"
+		Tooltip: ""
+	}
 }

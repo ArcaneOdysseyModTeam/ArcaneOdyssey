@@ -142,6 +142,7 @@ namespace ArcaneOdyssey.NPCs.Bosses
 				}
 			}
 		}
+
 		public static byte Packet { get; private set; }
 
 		public override void Load()
