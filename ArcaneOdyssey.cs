@@ -1,19 +1,21 @@
 global using Microsoft.Xna.Framework;
 global using Microsoft.Xna.Framework.Graphics;
 global using ReLogic.Content;
+global using System.IO;
 global using Terraria;
 global using Terraria.ID;
 global using Terraria.Localization;
 global using Terraria.ModLoader;
-global using System.IO;
-
 using ArcaneOdyssey.Biomes;
 using ArcaneOdyssey.Buffs;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Base;
 using ArcaneOdyssey.Items.Scrolls.Attacks.Rare;
+using ArcaneOdyssey.MainMenu;
 using ArcaneOdyssey.NPCs.Bosses;
+using ArcaneOdyssey.Subworlds.Base;
+using ArcaneOdysseyMusic;
 using System;
 using System.Collections.Generic;
 using Terraria.Chat;
@@ -94,6 +96,19 @@ namespace ArcaneOdyssey
 				Asset<Effect> MagicCircleShaderBase = Assets.Request<Effect>("Effects/MagicCircleShaderBase", AssetRequestMode.ImmediateLoad);
 
 				GameShaders.Misc[InternalName + ":MagicCircleBase"] = new MiscShaderData(MagicCircleShaderBase, "MagicCircleShaderBase");
+
+				ArcaneOdysseyMainMenu.Titles.AddRange(
+					new(MusicTrack.TitleTheme2, Color.White, "Classic"),
+					new(MusicTrack.TitleTheme, Color.Transparent, "Pixel"),
+					new(MusicTrack.DarkSea, Color.Gray, "Dragon"));
+
+				ArcaneOdysseyMainMenu.Titles.Add(new(MusicTrack.Djin, Color.Gray, "Djin", GlobalData.IsDefeated<LordElius>));
+
+				foreach (var subworld in ModContent.GetContent<AOSubworld>())
+				{
+					if (subworld.MenuStyle.HasValue)
+						ArcaneOdysseyMainMenu.Titles.Add(subworld.MenuStyle.Value);
+				}
 			}
 #if VSDEBUGMODE
 			NoticeQueue.Add("Project has been built in Debug mode (rather than Release), do not release publicly until this has been amended.");
