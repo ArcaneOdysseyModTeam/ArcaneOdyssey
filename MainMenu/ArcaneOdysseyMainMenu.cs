@@ -184,7 +184,7 @@ namespace ArcaneOdyssey.MainMenu
 	{
 		public override void OnModLoad()
 		{
-			if (!(Main.dedServ || ArcaneOdysseyClientConfig.Instance.RandomMenuStyle))
+			if (!Main.dedServ)
 			{
 				foreach (var title in Titles)
 				{
@@ -202,8 +202,8 @@ namespace ArcaneOdyssey.MainMenu
 		public override string DisplayName => Mod.CustomLocalization("MenuStyle", SelectedTitle.DisplayName.Value).Value;
 		public override bool IsLoadingEnabled(Mod mod) => !(Main.dedServ || SelectedTitle.Name.IsNullOrWhiteSpace());
 
-		public override bool IsAvailable => SelectedTitle.Requirement is null || SelectedTitle.Requirement();
-		public override Asset<Texture2D> Logo => AOUtils.Request(Mod.Name + "/Assets/TitleLogo", ref cachedLogo); 
+		public override bool IsAvailable => !ArcaneOdysseyClientConfig.Instance.RandomMenuStyle && (SelectedTitle.Requirement is null || SelectedTitle.Requirement());
+		public override Asset<Texture2D> Logo => AOUtils.Request(Mod.Name + "/Assets/TitleLogo", ref cachedLogo);
 
 		private void DrawAOBackground(SpriteBatch spriteBatch)
 		{
