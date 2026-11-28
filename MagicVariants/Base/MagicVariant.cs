@@ -106,9 +106,9 @@ namespace ArcaneOdyssey.MagicVariants.Base
 				{
 					return Color.Lerp(Colour, Colour2.Value, MathF.Sin(AOUtils.UpdateCount) / 2f + .5f);
 				}
-				else if (Imbuable.GetImbuable(Imbue).DefaultAnimatedColour.HasValue)
+				else if (ImbueInstance.DefaultAnimatedColour.HasValue)
 				{
-					return Color.Lerp(Colour, Imbuable.GetImbuable(Imbue).DefaultAnimatedColour.Value, MathF.Sin(AOUtils.UpdateCount) / 2f + .5f);
+					return Color.Lerp(Colour, ImbueInstance.DefaultAnimatedColour.Value, MathF.Sin(AOUtils.UpdateCount) / 2f + .5f);
 				}
 				return Colour;
 			}

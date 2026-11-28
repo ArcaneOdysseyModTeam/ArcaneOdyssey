@@ -7,6 +7,7 @@ using ArcaneOdyssey.Items.Debug;
 using ArcaneOdyssey.Items.Scrolls;
 using ArcaneOdyssey.Items.Scrolls.Dashes.Common;
 using ArcaneOdyssey.Items.Scrolls.Passive.Common;
+using ArcaneOdyssey.MagicVariants.Base;
 using ArcaneOdyssey.Projectiles;
 using ArcaneOdyssey.Projectiles.Base;
 using ArcaneOdyssey.Skills.Base;
@@ -1367,6 +1368,15 @@ namespace ArcaneOdyssey.Imbues.Base
 			}
 		}
 		public override bool ConsumeItem(Player player) => false;
+
+		public static Imbuable GenerateDynamicImbuable(int id, MagicVariant variant = null)
+		{
+			if (GetImbuable(id) is MagicType)
+			{
+				return MagicType.GenerateMagicType(id, variant);
+			}
+			else return GetImbuable(id);
+		}
 		#endregion
 	}
 }

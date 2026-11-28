@@ -35,7 +35,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 				ModItem item = i.ModItem;
 				if (item is MagicType magic && magic.ImbuableTier is ImbuableTiers.Normal)
 				{
-					MagicTypes type = IDToMagicType(magic.Type);
+					MagicTypes type = TypeToMagicType(magic.Type);
 					if (type is not MagicTypes.None) types.Add(type);
 				}
 			}

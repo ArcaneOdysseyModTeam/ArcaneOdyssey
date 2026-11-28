@@ -1,5 +1,6 @@
 ﻿using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.MagicVariants.Base;
 using ArcaneOdyssey.UI.MutateThyMagic;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -20,6 +21,7 @@ public abstract partial class BaseImbueUI : UIState
 
 		protected readonly string TexturePath;
 		public MagicTypes CurrentType;
+		public MagicVariant CurrentVariant = null;
 
 		public UIImage BackGround;
 		public UIImage Icon;
@@ -74,6 +76,15 @@ public abstract partial class BaseImbueUI : UIState
 		{
 			CurrentType = type;
 
+			if (MagicTypesToImbueID(CurrentType).HasValue && ImbueID.Sets.HasVariants[MagicTypesToImbueID(CurrentType).Value])
+			{
+				CurrentVariant = MagicVariant.GetFromID(ImbueID.Sets.DefaultVariant[MagicTypesToImbueID(CurrentType).Value]);
+			}
+			else
+			{
+				CurrentVariant = null;
+			}
+
 			Asset<Texture2D> texture = MagicTypeToMagicTexture(CurrentType);
 			if (texture is null)
 			{
@@ -87,6 +98,18 @@ public abstract partial class BaseImbueUI : UIState
 			{
 				ScaleToFit = true,
 			};
+
+			if (MagicTypesToImbueID(CurrentType).HasValue && ImbueID.Sets.HasVariants[MagicTypesToImbueID(CurrentType).Value] && !ImbueID.Sets.VariantsUseSprites[MagicTypesToImbueID(CurrentType).Value])
+			{
+				if (CurrentVariant is not null)
+					Icon.Color = CurrentVariant.AnimatedColour;
+				else
+					Icon.Color = Imbuable.GetImbuable(MagicTypesToImbueID(CurrentType).Value).Colour;
+			}
+			else
+			{
+				Icon.Color = Color.White;
+			}
 		}
 
 		public override void Update()
@@ -129,10 +152,16 @@ public abstract partial class BaseImbueUI : UIState
 
 			void EdgeCase()
 			{
-				var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(MagicTypesToItemType(CurrentType) ?? 0));
-				if (imbue is not null && ImbueID.Sets.HasVariants[imbue.ID] && !ImbueID.Sets.VariantsUseSprites[imbue.ID])
+				if (MagicTypesToImbueID(CurrentType).HasValue && ImbueID.Sets.HasVariants[MagicTypesToImbueID(CurrentType).Value] && !ImbueID.Sets.VariantsUseSprites[MagicTypesToImbueID(CurrentType).Value])
 				{
-					Icon.Color = imbue.Colour;
+					if (CurrentVariant is not null)
+						Icon.Color = CurrentVariant.AnimatedColour;
+					else
+						Icon.Color = Imbuable.GetImbuable(MagicTypesToImbueID(CurrentType).Value).Colour;
+				}
+				else
+				{
+					Icon.Color = Color.White;
 				}
 			}
 			#endregion
@@ -184,6 +213,7 @@ public abstract partial class BaseImbueUI : UIState
 		public BaseImbueUI MainUI;
 		protected readonly string TexturePath;
 		public MagicTypes CurrentType { protected set; get; }
+		public MagicVariant CurrentVariant { get; protected set; } = null;
 		public ModItem Mutation { set; get; }
 
 		public UIImage Icon;
@@ -249,10 +279,16 @@ public abstract partial class BaseImbueUI : UIState
 				ScaleToFit = true,
 			};
 
-			var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(MagicTypesToItemType(CurrentType) ?? 0));
-			if (imbue is not null && ImbueID.Sets.HasVariants[imbue.ID] && !ImbueID.Sets.VariantsUseSprites[imbue.ID])
+			if (MagicTypesToImbueID(CurrentType).HasValue && ImbueID.Sets.HasVariants[MagicTypesToImbueID(CurrentType).Value] && !ImbueID.Sets.VariantsUseSprites[MagicTypesToImbueID(CurrentType).Value])
 			{
-				Icon.Color = imbue.Colour;
+				if (CurrentVariant is not null)
+					Icon.Color = CurrentVariant.AnimatedColour;
+				else
+					Icon.Color = Imbuable.GetImbuable(MagicTypesToImbueID(CurrentType).Value).Colour;
+			}
+			else
+			{
+				Icon.Color = Color.White;
 			}
 
 			SetIconSizes();
@@ -263,35 +299,43 @@ public abstract partial class BaseImbueUI : UIState
 		public void ChangeType(MagicTypes type)
 		{
 			CurrentType = type;
-			Icon.SetImage(MagicTypeToMagicTexture(type));
-			if (CurrentType is MagicTypes.None) Icon.Color = Color.Transparent;
+
+			if (MagicTypesToImbueID(CurrentType).HasValue && ImbueID.Sets.HasVariants[MagicTypesToImbueID(CurrentType).Value])
+			{
+				CurrentVariant = MagicVariant.GetFromID(ImbueID.Sets.DefaultVariant[MagicTypesToImbueID(CurrentType).Value]);
+			}
 			else
 			{
-				var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(MagicTypesToItemType(CurrentType) ?? 0));
-				if (imbue is not null && ImbueID.Sets.HasVariants[imbue.ID] && !ImbueID.Sets.VariantsUseSprites[imbue.ID])
-				{
-					Icon.Color = imbue.Colour;
-				}
+				CurrentVariant = null;
 			}
+
+			Icon.SetImage(MagicTypeToMagicTexture(type));
+
+			if (MagicTypesToImbueID(CurrentType).HasValue && ImbueID.Sets.HasVariants[MagicTypesToImbueID(CurrentType).Value] && !ImbueID.Sets.VariantsUseSprites[MagicTypesToImbueID(CurrentType).Value])
+			{
+				if (CurrentVariant is not null)
+					Icon.Color = CurrentVariant.AnimatedColour;
+				else
+					Icon.Color = Imbuable.GetImbuable(MagicTypesToImbueID(CurrentType).Value).Colour;
+			}
+			else
+			{
+				Icon.Color = Color.White;
+			}
+
 			SetIconSizes();
 			Mutation = null;
 		}
 
-		public void ChangeType(ModItem item)
+		public void ChangeType(ModItem item = null)
 		{
 			//Main.NewText($"item? {item is null}");
 			CurrentType = MagicTypes.None;
+			CurrentVariant = null;
 			if (item is not null)
 			{
 				Icon.Remove();
-				Icon = new(TextureAssets.Item[item.Type]) { ScaleToFit = true };
-
-				var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(MagicTypesToItemType(CurrentType) ?? 0));
-				if (imbue is not null && ImbueID.Sets.HasVariants[imbue.ID] && !ImbueID.Sets.VariantsUseSprites[imbue.ID])
-				{
-					Icon.Color = imbue.Colour;
-				}
-
+				Icon = new(TextureAssets.Item[item.Type]) { ScaleToFit = true, Color = item.Item.color };
 				MainUI.Append(Icon);
 			}
 			else ChangeType(MagicTypes.None);
@@ -312,10 +356,16 @@ public abstract partial class BaseImbueUI : UIState
 
 			void EdgeCase()
 			{
-				var imbue = AOUtils.Safe<Imbuable>(ModContent.GetModItem(MagicTypesToItemType(CurrentType) ?? 0));
-				if (imbue is not null && ImbueID.Sets.HasVariants[imbue.ID] && !ImbueID.Sets.VariantsUseSprites[imbue.ID])
+				if (MagicTypesToImbueID(CurrentType).HasValue && ImbueID.Sets.HasVariants[MagicTypesToImbueID(CurrentType).Value] && !ImbueID.Sets.VariantsUseSprites[MagicTypesToImbueID(CurrentType).Value])
 				{
-					Icon.Color = imbue.Colour;
+					if (CurrentVariant is not null)
+						Icon.Color = CurrentVariant.AnimatedColour;
+					else
+						Icon.Color = Imbuable.GetImbuable(MagicTypesToImbueID(CurrentType).Value).Colour;
+				}
+				else
+				{
+					Icon.Color = Color.White;
 				}
 			}
 			#endregion

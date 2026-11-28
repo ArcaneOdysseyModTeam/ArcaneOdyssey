@@ -33,7 +33,7 @@ public partial class ImbueChangeUI : BaseImbueUI
 			if (acrIndex >= 0 && imbuIndex >= 0)
 			{
 				var og = player.inventory[imbuIndex].ModItem as Imbuable;
-				player.inventory[imbuIndex].SetDefaults(MagicTypeToItem(ProductSpotLight.CurrentType).type);
+				player.inventory[imbuIndex].SetDefaults(Imbuable.GenerateDynamicImbuable(MagicTypesToImbueID(ProductSpotLight.CurrentType).Value, ProductSpotLight.CurrentVariant).Type);
 				player.inventory[acrIndex].TurnToAir();
 
 

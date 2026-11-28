@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Items.Consumable;
+﻿using ArcaneOdyssey.Imbues.Base;
+using ArcaneOdyssey.Items.Consumable;
 using ArcaneOdyssey.UI._BaseImbueUI;
 using Terraria.Audio;
 using Terraria.UI;
@@ -18,7 +19,7 @@ public partial class ImbueAcquireSequelUI : BaseImbueUI
 			if (acrIndex >= 0)
 			{
 				player.inventory[acrIndex].TurnToAir();
-				if (player.GetItem(player.whoAmI, MagicTypeToItem(ProductSpotLight.CurrentType), GetItemSettings.InventoryEntityToPlayerInventorySettings) is Item newItem && newItem.netID != ItemID.None)
+				if (player.GetItem(player.whoAmI, Imbuable.GenerateDynamicImbuable(MagicTypesToImbueID(ProductSpotLight.CurrentType).Value, ProductSpotLight.CurrentVariant).Item, GetItemSettings.InventoryEntityToPlayerInventorySettings) is Item newItem && newItem.netID != ItemID.None)
 					player.QuickSpawnItem(player.GetSource_FromThis(), newItem, newItem.stack);
 				SoundEngine.PlaySound(SoundID.Unlock);
 				YoungMan_KillYourself();

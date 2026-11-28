@@ -1,8 +1,6 @@
 ﻿using ArcaneOdyssey.Buffs.MagicMarks;
-using ArcaneOdyssey.Imbues;
 using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Enemies;
-using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Projectiles.Base;
 using Terraria.Audio;
 

@@ -1,4 +1,5 @@
-﻿using ArcaneOdyssey.Imbues.FightingStyles.Normal;
+﻿using ArcaneOdyssey.Imbues;
+using ArcaneOdyssey.Imbues.FightingStyles.Normal;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.Imbues.Relics;
 using ArcaneOdyssey.Items.Consumable;
@@ -113,12 +114,54 @@ public abstract partial class BaseImbueUI : UIState
 
 		MagicTypes.None or _ => null,
 	};
+
+	public static int? MagicTypesToImbueID(MagicTypes type) => type switch
+	{
+		MagicTypes.ReturnToMonke => ImbueID.BasicCombat,
+
+		MagicTypes.MonkLife => AOUtils.ImbuableID<EaglePatrimony>(),
+		MagicTypes.HeHasAcceptedChristInHisHeart => ImbueID.Spirit,
+
+		MagicTypes.Acid => ImbueID.Acid,
+		MagicTypes.Ash => ImbueID.Ash,
+
+		MagicTypes.Crystal => ImbueID.Crystal,
+
+		MagicTypes.Earth => ImbueID.Earth,
+		MagicTypes.Explosion => ImbueID.Explosion,
+
+		MagicTypes.Fire => ImbueID.Fire,
+
+		MagicTypes.Glass => ImbueID.Glass,
+
+		MagicTypes.Ice => ImbueID.Ice,
+
+		MagicTypes.Light => ImbueID.Light,
+		MagicTypes.Lightning => ImbueID.Lightning,
+
+		MagicTypes.Magma => ImbueID.Magma,
+		MagicTypes.Metal => ImbueID.Metal,
+
+		MagicTypes.Plasma => ImbueID.Plasma,
+		MagicTypes.Poison => ImbueID.Poison,
+
+		MagicTypes.Sand => ImbueID.Sand,
+		MagicTypes.Shadow => ImbueID.Shadow,
+		MagicTypes.Snow => ImbueID.Snow,
+
+		MagicTypes.Water => ImbueID.Water,
+		MagicTypes.Wind => ImbueID.Wind,
+		MagicTypes.Wood => ImbueID.Wood,
+
+		MagicTypes.None or _ => null,
+	};
+
 	/// <summary>
 	/// Should have no issue so long as we don't change the order of <see cref="MagicTypes"/>
 	/// </summary>
 	/// <param name="id"></param>
 	/// <returns></returns>
-	public static MagicTypes IDToMagicType(int id)
+	public static MagicTypes TypeToMagicType(int id)
 	{
 		// Spoky (2026 March 06): Can't seem to have a simple switch statement and use ModContent.Itemtype, oh well
 		int[] ids = [

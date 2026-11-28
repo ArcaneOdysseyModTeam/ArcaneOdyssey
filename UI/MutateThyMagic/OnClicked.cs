@@ -75,7 +75,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 			return;
 		}
 		WhoWeMutating = p.CurrentType;
-		ProductSpotLight.ChangeType(null);
+		ProductSpotLight.ChangeType();
 		SpotTitle.SetText($"");
 		SpotStats.SetText($"");
 
@@ -130,7 +130,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		for (int i = 0; i < mutations.Count; i++)
 		{
 			int id = mutations[i];
-			ModItem mutation = ContentSamples.ItemsByType[id].Clone().ModItem;
+			ModItem mutation = Imbuable.GetImbuable(id).Item.Clone().ModItem;
 			CustomProduct product = new(this, mutation);
 
 			product.BackGround.Width.Set(64, 0f);
@@ -256,7 +256,7 @@ public partial class MutateThyMagicUI : BaseImbueUI
 		}
 		if (!changed && ProductSpotLight.Mutation is not null)
 		{
-			ProductSpotLight.ChangeType(null);
+			ProductSpotLight.ChangeType();
 			SpotTitle.SetText("");
 			SpotStats.SetText("");
 		}

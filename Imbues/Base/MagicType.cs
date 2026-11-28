@@ -34,22 +34,38 @@ namespace ArcaneOdyssey.Imbues.Base
 		public static MagicType GenerateMagicType(int id, MagicVariant variant)
 		{
 			var imbue = AOUtils.Safe<MagicType>(GetImbuable(id));
-			if (imbue is not null && variant is not null)
+			if (imbue is not null)
 			{
-				imbue.magicVariant = variant;
-				imbue.VariantColour = variant.Colour;
+				if (variant is null && ImbueID.Sets.HasVariants[id])
+				{
+					variant = MagicVariant.GetFromID(ImbueID.Sets.DefaultVariant[id]);
+				}
+				if (variant is not null)
+				{
+					imbue.magicVariant = variant;
+					imbue.VariantColour = variant.Colour;
+				}
 			}
+
 			return imbue;
 		}
+
 		public static MagicType GenerateMagicType(int id, int variant)
 		{
 			var imbue = AOUtils.Safe<MagicType>(GetImbuable(id));
-			if (variant >= 0)
-				if (imbue is not null)
+			if (imbue is not null)
+			{
+				if (variant < 0)
+				{
+					variant = ImbueID.Sets.DefaultVariant[id];
+				}
+				if (variant >= 0)
 				{
 					imbue.magicVariant = MagicVariant.GetFromID(variant);
 					imbue.VariantColour = MagicVariant.GetFromID(variant).Colour;
 				}
+			}
+
 			return imbue;
 		}
 

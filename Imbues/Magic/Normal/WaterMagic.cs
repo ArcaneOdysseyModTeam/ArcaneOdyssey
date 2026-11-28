@@ -17,8 +17,13 @@ namespace ArcaneOdyssey.Imbues.Magic.Normal
 			RegisterMutation<PlantMagic>();
 		}
 		public override float DashSpeed => 1.2f; // burst
-		public override void SetStaticDefaults() { base.SetStaticDefaults(); ArcaneOdysseyMod.Sets.cold[Type] = true; }
-		public override Color ImbueColour => new(0, 30, 255);
+		public override void SetStaticDefaults()
+		{
+			base.SetStaticDefaults();
+			ArcaneOdysseyMod.Sets.cold[Type] = true;
+		}
+
+		public override Color ImbueColour => new(30, 30, 255);
 
 
 		public override void Load()

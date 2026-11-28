@@ -7,7 +7,6 @@ using ArcaneOdyssey.Imbues.Base;
 using ArcaneOdyssey.Imbues.Magic.Normal;
 using ArcaneOdyssey.MagicVariants.Base;
 using ArcaneOdyssey.MagicVariants.Lost.PoisonLightning;
-using ArcaneOdyssey.Projectiles.Magic.Effects;
 using System;
 using Terraria.Audio;
 
